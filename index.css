@@ -8,6 +8,19 @@
     transform: rotate(90deg);
     }
 
+    .container {
+      position: absolute;
+      bottom: 8px;
+      left 16px;
+      height: 100%;
+    }
+    .top-left{
+      position:absolute;
+      top:8px;
+      left:16px;
+    }
+
+
    h1,h2,h3,h4,h5,h6
     {
   display: block;
