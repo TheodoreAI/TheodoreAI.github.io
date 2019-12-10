@@ -1,19 +1,13 @@
-body{
-    background-color: black;
-    margin: 010%;
-    font-family: sans-serif;
-    text-align: center;
-    }
-h1 { color: white; text-align:center;
-  font-family:italic; front-weight:
-    normal; text-transform: uppercase;}
-h2 { color: blue; font-size: 1em;}
-h6 { color: white; font-size: 5em}
 
-h2
- {
-   position: bottom
-  }
+   .rotate90
+    {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    }
+
     .container {
       position: absolute;
       bottom: 8px;
@@ -25,6 +19,17 @@ h2
       top:8px;
       left:16px;
     }
+
+   h1,h2,h3,h4,h5,h6
+    {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 2.33em;
+  margin-bottom: 2.33em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+     }
 
 
     /* Dropdown Button */
