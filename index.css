@@ -7,13 +7,10 @@ body{
 h1 { color: white; text-align:center;
   font-family:italic; front-weight:
     normal; text-transform: uppercase;}
-h2 { color: blue; font-size: 1em;}
+h2 { color: blue; font-size: 1em; position: bottom}
 h6 { color: white; font-size: 5em}
 
-h2
- {
-   position: bottom
-  }
+
     .container {
       position: absolute;
       bottom: 8px;
