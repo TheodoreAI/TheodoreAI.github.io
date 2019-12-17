@@ -1,0 +1,128 @@
+/* the header CSS*/
+.header {
+  padding: 30px;
+  text-align: center;
+  background: #da1313;
+}
+
+/* the header text, aka title format */
+.header h1{
+  font-size: 50px;
+}
+
+/* top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: black;
+}
+
+/* styilying the top navigation links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #da1313;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/*changes the color of the links when hovered over */
+.topnav a:hover{
+  background-color: #ddd;
+  color: black;
+}
+
+.vertical-menu {
+  width: 100px;  /*this changes the width of the bar*/
+}
+.vertical-menu a {
+  background-color: #da2828; /*this is the background of the bar*/
+  color: #060606; /*text color*/
+  display: block; /*makes links appear below each other*/
+  padding: 12px; /* add some padding */
+  text-decoration: none; /* removes underline from the links */
+}
+.vertical-menu a:hover {
+  background-color: #ccc; /*when mouse hover over */
+}
+.vertical-menu a.active {
+  background-color: #e41d29; /*adds a color to the link when its hovering on it */
+}
+
+
+    /* Dropdown Button */
+.skillbtn {
+  background-color: #ec0e0e;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.skills {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  bottom: 20;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.skills-content {
+  display: none;
+  position: relative;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgb(223, 222, 236);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.skills-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.skills-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.skills:hover .skills-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.skills:hover .skillbtn {background-color: #d9eded;}
+
+/* place the navigation bar at the bottom of the page and make it stick */
+.navbar{
+  background-color: black;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/*sty;es the links inside the navigation bar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #ddd;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/*change color when hovering */
+
+.navbar a:hover {
+  background-color: #deeff0;
+  color: black;
+}
+
+/* adds color to the active/current link */
+.navbar a.active {
+  background-color: #e83949;
+  color: white;
+}
