@@ -1,3 +1,42 @@
+
+/* adding the art that chava made for his background */
+.hero-image {
+  /* use a linear-gradient to add a darken background effect to the logo.*/
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("chava1.jng");
+/* height of the image*/
+height: 50%;
+/* scale it on all screens like so:*/
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+}
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.hero-text button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: #ddd;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hero-text button:hover {
+  background-color: #555;
+  color: white;
+}
+
+
 body{
     background-color: black;
     margin: 010%;
@@ -8,7 +47,7 @@ h1 { color: white; text-align:center;
   font-family:italic; front-weight:
     normal; text-transform: uppercase;}
 h2 { color: blue; font-size: 1em; position: bottom}
-h3 { color: white; font-size: 1em}
+h3 { color: white; font-size: 1em; position: bottom}
 
 
     .container {

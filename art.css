@@ -1,13 +1,49 @@
-/* the header CSS*/
-.header {
-  padding: 30px;
-  text-align: center;
-  background: #da1313;
+/* give the source citatioin from coderwall full-page background */
+body, html {
+    background: #red; /* fallback color */
+    background: linear-gradient( to bottom, #grey, #black);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
 }
 
-/* the header text, aka title format */
-.header h1{
-  font-size: 50px;
+/* adding the art that chava made for his background */
+.hero-image {
+  /* use a linear-gradient to add a darken background effect to the logo.*/
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("chava_art/chava87.png");
+/* height of the image*/
+height: 50%;
+
+/* scale it on all screens like so:*/
+background-position: top;
+background-repeat: no-repeat;
+background-size: 100%;
+position: relative;
+}
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.hero-text button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: #ddd;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hero-text button:hover {
+  background-color: #555;
+  color: white;
 }
 
 /* top navigation bar */
@@ -49,51 +85,6 @@
   background-color: #e41d29; /*adds a color to the link when its hovering on it */
 }
 
-
-    /* Dropdown Button */
-.skillbtn {
-  background-color: #ec0e0e;
-  color: black;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.skills {
-  position: absolute;
-  display: inline-block;
-  right: 0;
-  bottom: 20;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.skills-content {
-  display: none;
-  position: relative;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgb(223, 222, 236);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.skills-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.skills-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.skills:hover .skills-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.skills:hover .skillbtn {background-color: #d9eded;}
-
 /* place the navigation bar at the bottom of the page and make it stick */
 .navbar{
   background-color: black;
@@ -125,4 +116,30 @@
 .navbar a.active {
   background-color: #e83949;
   color: white;
+}
+/* gallery classes*/
+
+div.gallery {
+  border: 1px solid #e81024;
+  margin: 5px;
+  border: 10px solid grey;
+  float: left;
+  width: 180px;
+  position: relative;
+}
+div.gallery:hover {
+  border: 1px solid #e81024;
+}
+
+div.gallery img{
+  width: 100%;
+  height: 100%;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+  position: relative;
+  width: auto;
+  height: auto;
 }
