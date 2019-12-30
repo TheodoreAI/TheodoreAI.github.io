@@ -1,0 +1,14 @@
+.rotateimg90 {
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.position{
+  object-fit: none;
+  object-position: 50% 50%; /* default value: image is centered*/
+  object-position: 0 0;
+
+}
