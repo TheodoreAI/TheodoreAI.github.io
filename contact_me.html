@@ -17,6 +17,51 @@
         {
             text-align: center;
         }
+.container {
+  position: relative;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: blue;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
     </style>
 </head>
 <body>
@@ -29,6 +74,12 @@
     <p>Have a lovely evening.</p>
    </h1>
     <!--photos of luna and nature-->
-<img id="luna" src="photos_contact_me/Luna_sweater.JPG"  width="250"height="300" alt="photo_luna">
+<div class="container">
+  <img id="luna" class="image" src="photos_contact_me/Luna_sweater.JPG"  alt="photo_luna">
+  <div class="middle">
+    <div class="text">Luna </div>
+  </div>
+</div>
+
 </body>
 </html>
