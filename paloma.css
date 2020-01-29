@@ -6,7 +6,25 @@
   transform: rotate(90deg);
 }
 
-.img {
-  float: left;
+.text {
+  background-image: linear-gradient(white, grey);
+  color: black;
+  margin: 20px;
+  padding: 50px;
+  font-size: 100%;
+  font-family: fantasy;
+  font-style: italic;
 
+}
+
+.photos{
+  background-color: white;
+}
+
+.textarea {
+  padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
 }
