@@ -13,59 +13,105 @@
   </title>
   <link href="index.css" rel="stylesheet" type="text/css" />
   <style>
+    .button{
+      background: white;
 
+    }
   </style>
 </head>
 
-<body>
+<body class="bgimg">
   <!--Adds the link to the js file, changes the font-size of an object in the html file-->
+
+
+<!--  this is the timer -->
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Nov 5, 2020 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("count").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is over, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("count").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+
 
   <div class="bgimg">
     <div class="topcenter">
       <p>BitBrane</p>
     </div>
     <div class="middle">
-      <h1>Coming soon</h1>
+      <h1>Coming Fall 2020</h1>
       <hr>
-      <p>Fall 2020</p>
-    </div>
+
+<p id="count"></p>
+<!-- This is a small game to play -->
+
+<!-- This is the table that has the game for paloma to interact with -->
+
+<center>
+<button onClick="shuffle();">New Game</button>
+  <div id="table" style="display: table;">
+   <div id="row1" style="display: table-row;">
+      <div id="cell11" class="tile1"
+      onClick="clickTile(1,1);"></div>
+      <div id="cell12" class="tile2"
+      onClick="clickTile(1,2);"></div>
+      <div id="cell13" class="tile3"
+      onClick="clickTile(1,3);"></div>
+   </div>
+   <div id="row2" style="display: table-row;">
+      <div id="cell21" class="tile4"
+      onClick="clickTile(2,1);"></div>
+      <div id="cell22" class="tile5"
+      onClick="clickTile(2,2);"></div>
+      <div id="cell23" class="tile6"
+      onClick="clickTile(2,3);"></div>
+   </div>
+   <div id="row3" style="display: table-row;">
+      <div id="cell31" class="tile7"
+      onClick="clickTile(3,1);"></div>
+      <div id="cell32" class="tile8"
+      onClick="clickTile(3,2);"></div>
+      <div id="cell33" class="tile9"
+      onClick="clickTile(3,3);"></div>
+   </div>
+
+</div>
+
+</center>
+  </div>
     <div class="bottomleft">
-      <p>Static Ecommerce template</p>
+      <p>Static Ecommerce</p>
       <p>Because speed matters.<p>
-      <p><a href="portfolio.html">Portfolio</a></p>
+      <p><a href="portfolio.html"> <button class="button"> Portfolio </button></a></p>
     </div>
   </div>
 
-  <script>
-  // Set the date we're counting down to
-  var countDownDate = new Date("Nov 5, 2020 15:37:25").getTime();
 
-  // Update the count down every 1 second
-  var countdownfunction = setInterval(function() {
-
-    // Get todays date and time
-    var now = new Date().getTime();
-
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Output the result in an element with id="demo"
-    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-    + minutes + "m " + seconds + "s ";
-
-    // If the count down is over, write some text
-    if (distance < 0) {
-      clearInterval(countdownfunction);
-      document.getElementById("demo").innerHTML = "EXPIRED";
-    }
-  }, 1000);
-  </script>
 </body>
 
 </html>

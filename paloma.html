@@ -12,6 +12,14 @@
     .background{
       background-image: linear-gradient(white, rgb(242, 233, 12), rgb(44, 230, 242));
     }
+
+    .button{
+      background-color: yellow;
+      padding: 10px 15px;
+
+    }
+
+
     </style>
 
   </head>
@@ -26,8 +34,7 @@
       Paloma,
    </h1>
    <h2>Forget about making a mixtape, this is...
-     <p>Making you a website of who you are to me,
-       and most importantly, who you are to the world in my perspective.
+     <p>Making you a lil website
      </p>
    </h2>
 
@@ -37,14 +44,16 @@
     <div class ="container">
      <img src = "img_website/paloma.JPG" alt = "new_port" style="width:370px; height:270px;" class="rotateimg90" class="img">
      <div class = "top-left"></div>
-     <div class = "top-left"><a href="poems.html"> Poems </a></div>
-       <a href="img_website/ofmateoands.png"> Click for a surprise. </a>
+     <div class = "top-left"><a href="poems.html"> <button type="button" class="button" onclick="alert('Lil shit')"> Memories</button></a></div>
+       <a href="img_website/ofmateoands.png"> <button class="button" > For a surprise </button></a>
    </h4>
 
 
 <!-- This is the table that has the game for paloma to interact with -->
 
-<center><div id="table" style="display: table;">
+<center>
+<button onClick="shuffle();">New Game</button>
+  <div id="table" style="display: table;">
    <div id="row1" style="display: table-row;">
       <div id="cell11" class="tile1"
       onClick="clickTile(1,1);"></div>
@@ -69,8 +78,9 @@
       <div id="cell33" class="tile9"
       onClick="clickTile(3,3);"></div>
    </div>
+
 </div>
-  <button onClick="shuffle();">New Game</button>
+
 </center>
 
   </body>
