@@ -3,10 +3,14 @@ body, html {
   height: 100%;
 
 }
+.hr {
+  margin: auto;
+  width: 40%;
+}
 
 .bgimg {
   /* background img*/
-  background-image: linear-gradient(blue, white);
+  background-image: linear-gradient(rgb(41, 41, 131), white);
     /* Full-screen */
   height: 100%;
   /* Center the background image */
@@ -19,44 +23,48 @@ body, html {
   color: white;
   /* Add a font */
   font-family: "Courier New", Courier, monospace;
-  /* Set the font-size to 25 pixels */
-  font-size: 25px;
 }
 
 /* Position text in the top-left corner */
-.topcenter {
+.topCenter {
   position: relative;
   text-align: center;
   font-weight: bold;
-  font-style: italic;
-  font-size: 50px;
+  margin: 10px;
+  padding: 5px
+
+}
+.topCenter .heading{
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Position text in the bottom-left corner */
-.bottomleft {
-  position: absolute;
-  bottom: 0;
-  left: 16px;
-  font-size: 18px;
-  font-weight: bold;
+/* Child elements of the topcenter div. */
+
+.topCenterButton{
+  width: 100px;
+  height: 50px;
+  background-color: #4F8AC4;
+  color: white;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+}
+.topCenterButton:hover{
   color: black;
+  background-color: #B03B4C;
+  font-weight: bold;
 }
 
-/* Position text in the middle */
+/* Position The clock and the coming date in the middle */
 .middle {
+  margin-top: 100px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  margin-left: 50%;
+  margin-right: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: black;
-
 }
+/* Style the Footer for the general page */
 
-/* Style the <hr> element */
-.hr {
-  margin: auto;
-  width: 40%;
-}
-
-/* makes the game graphics */
