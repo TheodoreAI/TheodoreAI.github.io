@@ -25,7 +25,7 @@
                             <ul class="dropdown-menu m-3 p-2" aria-labelledby="dropdownMenuButton1">
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(197, 0, 21);" data-game="pong">Pong</button></li>
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(42, 122, 162);" data-game="breakout">Breakout</button></li>
-                              <!-- <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids</button></li> -->
+                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids</button></li>
                             </ul>
                         </div>
                     </div>
@@ -78,6 +78,12 @@
         // this class has the following constructor: canvas, mouseX
         // this class has the following event listeners: keydown, keyup, mousemove, click
         // this class has the following variables: LEFT_BOUNDARY, RIGHT_BOUNDARY, TOP_BOUNDARY, BOTTOM_BOUNDARY, ASTEROID_SPEED, BULLET_SPEED, PARTICLE_SPEED, ASTEROID_RADIUS, BULLET_RADIUS, PARTICLE_RADIUS, SHIP_RADIUS, ASTEROID_VERTICES, ASTEROID_BREAKUP_VERTICES, ASTEROID_BREAKUP_SPEED, ASTEROID_BREAKUP_COUNT, ASTEROID_BREAKUP_SIZE, ASTEROID_BREAKUP_ROTATION, ASTEROID_BREAKUP_ROTATION_SPEED, ASTEROID_BREAKUP_LIFE, ASTEROID_BREAKUP_COLOR, ASTEROID_BREAKUP_ALPHA, ASTEROID_BREAKUP_ALPHA_SPEED, ASTEROID_BREAKUP_ALPHA_MIN, ASTEROID_BREAKUP_ALPHA_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION, ASTEROID_BREAKUP_ALPHA_DIRECTION_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_NONE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MIN, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_NONE
+        
+
+        // lets load an SVG as an asset to use 
+        // this is the SVG for the ship
+       
+
 
         class AsteroidsGame {
             constructor(canvas) {
@@ -98,7 +104,35 @@
               this.gameOverScreen = false;
               this.init();
             }
-          
+            // All my utility functions will be here for drawing etc
+            drawShip(){
+                // Your game drawing logic here.
+                // Define the ship's dimensions and position
+                const shipWidth = 40;
+                const shipHeight = 40;
+                const shipX = this.canvas.width / 2 - shipWidth / 2;
+                const shipY = this.canvas.height - shipHeight - 10;
+                
+                // Draw the spaceship in the shape of a triangle and add 
+                this.ctx.beginPath();
+                this.ctx.moveTo(shipX, shipY);
+                this.ctx.lineTo(shipX + shipWidth / 2, shipY - shipHeight);
+                this.ctx.lineTo(shipX + shipWidth, shipY);
+                this.ctx.closePath();
+                
+                // Set the fill color
+                this.ctx.fillStyle = 'blue';
+                
+                // Fill the ship shape
+                this.ctx.fill();
+                
+                // Set the stroke color and draw an outline
+                this.ctx.strokeStyle = 'black';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+
+
+            }
             init() {
               // Initialize your game here, e.g., creating initial asteroids.
             }
@@ -108,7 +142,7 @@
             }
           
             draw() {
-              // Your game drawing logic here.
+              this.drawShip();
             }
 
             updateStartScreen(){
@@ -122,16 +156,17 @@
                 // make the game start when the user clicks the mouse button
                 this.canvas.addEventListener("click", () => {
                     // alert 
-                    alert("Game started");
-                    // start the game
                     this.startScreen = false;
-                    this.paused = false;
-                    this.gameOver = false;
+                    // start the game loop
+                    // delete the the start screen
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.gameLoop();
                 });
             }
 
             gameLoop(){
-                console.log("game loop");
+                
+                
                 if(this.gameOver){
                     this.updateGameOverScreen();
                     return;
