@@ -25,6 +25,7 @@
                             <ul class="dropdown-menu m-3 p-2" aria-labelledby="dropdownMenuButton1">
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(197, 0, 21);" data-game="pong">Pong</button></li>
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(42, 122, 162);" data-game="breakout">Breakout</button></li>
+                              <!-- <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids</button></li> -->
                             </ul>
                         </div>
                     </div>
@@ -47,6 +48,129 @@
    </div>
    
     <script type="module">
+
+        // the asteroids game has the following: AsteroidsGame, Asteroid, Ship, Bullet, and Particle classes 
+        // each of those classes will have a draw and update method and a constructor
+        // the game will have a game loop that will call the update and draw methods of each class
+        // the game will have a keydown event listener to move the ship
+        // the game will have a keyup event listener to stop the ship from moving
+        // the game will have a mousemove event listener to rotate the ship
+        // the game will have a click event listener to shoot bullets
+        // the game will have a collision detection method to detect collisions between the ship and asteroids
+        // the game will have a collision detection method to detect collisions between bullets and asteroids
+        // the game will have a collision detection method to detect collisions between the ship and particles
+        // the game will have a collision detection method to detect collisions between asteroids and particles
+        // the game will have a collision detection method to detect collisions between bullets and particles
+        // then the game will have a method to remove the asteroids, bullets, and particles from the game
+        // the game will have a method to add asteroids, bullets, and particles to the game
+        // the game will have a method to reset the game
+        // the game will have a method to update the score
+        // the game will have a method to update the lives
+        // the game will have a method to update the level
+        // the game will have a method to update the high score
+        // the game will have a method to update the game over screen
+        // the game will have a method to update the pause screen
+        // the game will have a method to update the start screen
+
+        // Lets start with the AsteroidGame class
+        // this class has the following properties: canvas, ctx, ship, asteroids, bullets, particles, score, lives, level, highScore, gameOver, paused, startScreen, pauseScreen, gameOverScreen
+        // this class has the following methods: update, draw, keyDownHandler, keyUpHandler, mouseMoveHandler, clickHandler, collisionDetection, removeAsteroids, removeBullets, removeParticles, addAsteroids, addBullets, addParticles, reset, updateScore, updateLives, updateLevel, updateHighScore, updateGameOverScreen, updatePauseScreen, updateStartScreen, gameLoop
+        // this class has the following constructor: canvas, mouseX
+        // this class has the following event listeners: keydown, keyup, mousemove, click
+        // this class has the following variables: LEFT_BOUNDARY, RIGHT_BOUNDARY, TOP_BOUNDARY, BOTTOM_BOUNDARY, ASTEROID_SPEED, BULLET_SPEED, PARTICLE_SPEED, ASTEROID_RADIUS, BULLET_RADIUS, PARTICLE_RADIUS, SHIP_RADIUS, ASTEROID_VERTICES, ASTEROID_BREAKUP_VERTICES, ASTEROID_BREAKUP_SPEED, ASTEROID_BREAKUP_COUNT, ASTEROID_BREAKUP_SIZE, ASTEROID_BREAKUP_ROTATION, ASTEROID_BREAKUP_ROTATION_SPEED, ASTEROID_BREAKUP_LIFE, ASTEROID_BREAKUP_COLOR, ASTEROID_BREAKUP_ALPHA, ASTEROID_BREAKUP_ALPHA_SPEED, ASTEROID_BREAKUP_ALPHA_MIN, ASTEROID_BREAKUP_ALPHA_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION, ASTEROID_BREAKUP_ALPHA_DIRECTION_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_NONE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MIN, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_NONE
+
+        class AsteroidsGame {
+            constructor(canvas) {
+              this.canvas = canvas;
+              this.ctx = canvas.getContext("2d");
+              this.ship = new Ship(canvas);
+              this.asteroids = [];
+              this.bullets = [];
+              this.particles = [];
+              this.score = 0;
+              this.lives = 3;
+              this.level = 1;
+              this.highScore = 0;
+              this.gameOver = false;
+              this.paused = false;
+              this.startScreen = true;
+              this.pauseScreen = false;
+              this.gameOverScreen = false;
+              this.init();
+            }
+          
+            init() {
+              // Initialize your game here, e.g., creating initial asteroids.
+            }
+          
+            update() {
+              // Your game update logic here.
+            }
+          
+            draw() {
+              // Your game drawing logic here.
+            }
+
+            updateStartScreen(){
+                // draw the start screen
+                this.ctx.font = "40px Arial";
+                this.ctx.fillStyle = "black";
+                this.ctx.fillText("Asteroids", this.canvas.width / 2 - 60, this.canvas.height / 4);
+                this.ctx.font = "20px Arial";
+                this.ctx.fillText("Click to start", this.canvas.width / 2 - 60, this.canvas.height / 2);
+
+                // make the game start when the user clicks the mouse button
+                this.canvas.addEventListener("click", () => {
+                    // alert 
+                    alert("Game started");
+                    // start the game
+                    this.startScreen = false;
+                    this.paused = false;
+                    this.gameOver = false;
+                });
+            }
+
+            gameLoop(){
+                console.log("game loop");
+                if(this.gameOver){
+                    this.updateGameOverScreen();
+                    return;
+                }
+                if(this.paused){
+                    this.updatePauseScreen();
+                    return;
+                }
+                if(this.startScreen){
+                    this.updateStartScreen();
+                    return;
+                }
+                this.update();
+                this.draw();
+                requestAnimationFrame(this.gameLoop.bind(this));
+            }
+          
+            // Other methods like keyDownHandler, keyUpHandler, etc.
+          }
+          
+          // Asteroid class
+          class Asteroid {
+            // Constructor and methods for the Asteroid class.
+          }
+          
+          // Ship class
+          class Ship {
+            // Constructor and methods for the Ship class.
+          }
+          
+          // Bullet class
+          class Bullet {
+            // Constructor and methods for the Bullet class.
+          }
+          
+          // Particle class
+          class Particle {
+            // Constructor and methods for the Particle class.
+          }
 
         // Breakout game logic
         class BreakoutGame {
@@ -528,11 +652,18 @@
                 gameInstance.gameLoop();
             }
 
+            function startAsteroids(gameInstance){
+                clearCanvas();
+                gameInstance.gameLoop();
+            }
+
             // Game selection UI
             const gameButtons = document.querySelectorAll(".game-button");
             gameButtons.forEach((button)=> {
                 button.addEventListener("click", () => {
                      
+
+                    // You can load up different games using the following logic
                     const selectedGame = button.getAttribute("data-game");
                     if(selectedGame === "pong"){
                        
@@ -542,6 +673,10 @@
                     if(selectedGame === "breakout"){
                         window[selectedGame] = new BreakoutGame(canvas);
                         startBreakout(window[selectedGame]);
+                    }
+                    if(selectedGame === "asteroids"){
+                        window[selectedGame] = new AsteroidsGame(canvas);
+                        startAsteroids(window[selectedGame]);
                     }
                    
                 });
