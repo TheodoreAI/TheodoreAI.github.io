@@ -186,23 +186,28 @@
                 this.shipY = canvas.height / 2;
                 this.shipWidth = 40;
                 this.shipHeight = 40;
-                this.dx = 0.5;
-                this.dy = 0.5;
-                this.ARROW_UP = "ArrowUp";
                 // rotation variables
                 this.rotation = 0;
-                this.rotationSpeed = 0.1;
+                this.rotationSpeed = 0.5;
 
             }
 
-
             drawShip(ctx){
-
+                // store the current context 
+                ctx.save();
+                
+                // convert degrees to radians
+                let radians = this.rotation * Math.PI / 180;
+                
+                // translate the canvas origin to the center of the ship
+                ctx.translate(this.shipX + this.shipWidth / 2, this.shipY + this.shipHeight / 2);
+                ctx.rotate(radians);
+                
                 // Draw the spaceship in the shape of a triangle and add 
                 ctx.beginPath();
-                ctx.moveTo(this.shipX, this.shipY);
-                ctx.lineTo(this.shipX + this.shipWidth / 2, this.shipY - this.shipHeight);
-                ctx.lineTo(this.shipX + this.shipWidth, this.shipY);
+                ctx.moveTo(-this.shipWidth / 2, -this.shipHeight / 2); // Adjusted coordinates
+                ctx.lineTo(this.shipWidth / 2, -this.shipHeight / 2);
+                ctx.lineTo(0, this.shipHeight / 2); // Adjusted coordinates
                 ctx.closePath();
                 
                 // Set the fill color
@@ -215,34 +220,21 @@
                 ctx.strokeStyle = 'black';
                 ctx.lineWidth = 2;
                 ctx.stroke();
+                
+                ctx.restore();
+
 
             }
             update(event){
-                // Move the ship
-                if(event.key === this.ARROW_UP){
-                    this.dy = -3;
-                }
-                if(event.key === "ArrowDown"){
-                    this.dy = 3;
-                }
-
-                // rotate the ship
+                // rotate the ship by 10 degrees
                 if(event.key === "ArrowLeft"){
-                    this.ctx.translate(this.shipX, this.shipY);
-                    this.ctx.rotate(-Math.PI / 180);
-                    this.ctx.translate(-this.shipX, -this.shipY);
+                    this.rotation -= this.rotationSpeed;
                 }
 
+                // rotate the ship by 10 degrees
                 if(event.key === "ArrowRight"){
-                    this.ctx.translate(this.shipX, this.shipY);
-                    this.ctx.rotate(Math.PI / 180);
-                    this.ctx.translate(-this.shipX, -this.shipY);
+                    this.rotation += this.rotationSpeed;
                 }
-
-
-
-                this.shipY += this.dy;
-                this.shipX += this.dx;
             }
 
             draw(ctx){
@@ -254,8 +246,6 @@
             reset(){
                 this.x = this.canvas.width / 2;
                 this.y = this.canvas.height / 2;
-                this.dx = 0;
-                this.dy = 0;
                
             }
 
