@@ -34,7 +34,7 @@
             <div class="bg-dark">
                 {{!-- here you will render the compiled rust code that will run on the browser the game --}}
                 <div class="row" id="gameOne">
-                    <div class="col-12 d-flex justify-content-center align-items-center" style="height: 50vh;">
+                    <div class="col-12 d-flex justify-content-center align-items-center" style="height: 60vh;">
                         <canvas id="pongCanvas" width="700" height="500" style="background-color: rgb(216, 230, 232);"></canvas>
                     </div>
                 </div>
@@ -78,13 +78,6 @@
         // this class has the following constructor: canvas, mouseX
         // this class has the following event listeners: keydown, keyup, mousemove, click
         // this class has the following variables: LEFT_BOUNDARY, RIGHT_BOUNDARY, TOP_BOUNDARY, BOTTOM_BOUNDARY, ASTEROID_SPEED, BULLET_SPEED, PARTICLE_SPEED, ASTEROID_RADIUS, BULLET_RADIUS, PARTICLE_RADIUS, SHIP_RADIUS, ASTEROID_VERTICES, ASTEROID_BREAKUP_VERTICES, ASTEROID_BREAKUP_SPEED, ASTEROID_BREAKUP_COUNT, ASTEROID_BREAKUP_SIZE, ASTEROID_BREAKUP_ROTATION, ASTEROID_BREAKUP_ROTATION_SPEED, ASTEROID_BREAKUP_LIFE, ASTEROID_BREAKUP_COLOR, ASTEROID_BREAKUP_ALPHA, ASTEROID_BREAKUP_ALPHA_SPEED, ASTEROID_BREAKUP_ALPHA_MIN, ASTEROID_BREAKUP_ALPHA_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION, ASTEROID_BREAKUP_ALPHA_DIRECTION_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_NONE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MIN, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_NONE
-        
-
-        // lets load an SVG as an asset to use 
-        // this is the SVG for the ship
-       
-
-
         class AsteroidsGame {
             constructor(canvas) {
               this.canvas = canvas;
@@ -99,50 +92,49 @@
               this.highScore = 0;
               this.gameOver = false;
               this.paused = false;
-              this.startScreen = true;
+              this.startScreen = false;
               this.pauseScreen = false;
               this.gameOverScreen = false;
               this.init();
+              this.keyDownEvent = {};
+              document.addEventListener("keydown", this.keyDownHandler.bind(this));
+              this.keyUpEvent = {};
+                document.addEventListener("keyup", this.keyUpHandler.bind(this));
+
             }
             // All my utility functions will be here for drawing etc
-            drawShip(){
-                // Your game drawing logic here.
-                // Define the ship's dimensions and position
-                const shipWidth = 40;
-                const shipHeight = 40;
-                const shipX = this.canvas.width / 2 - shipWidth / 2;
-                const shipY = this.canvas.height - shipHeight - 10;
-                
-                // Draw the spaceship in the shape of a triangle and add 
-                this.ctx.beginPath();
-                this.ctx.moveTo(shipX, shipY);
-                this.ctx.lineTo(shipX + shipWidth / 2, shipY - shipHeight);
-                this.ctx.lineTo(shipX + shipWidth, shipY);
-                this.ctx.closePath();
-                
-                // Set the fill color
-                this.ctx.fillStyle = 'blue';
-                
-                // Fill the ship shape
-                this.ctx.fill();
-                
-                // Set the stroke color and draw an outline
-                this.ctx.strokeStyle = 'black';
-                this.ctx.lineWidth = 2;
-                this.ctx.stroke();
-
-
+            keyDownHandler(event){
+                event.preventDefault();
+                this.keyDownEvent = event;
+                this.ship.update(this.keyDownEvent);
             }
+
+            keyUpHandler(event){
+                event.preventDefault();
+                this.keyUpEvent = event;
+                this.ship.update(this.keyUpEvent);
+            }
+            
             init() {
               // Initialize your game here, e.g., creating initial asteroids.
             }
           
             update() {
-              // Your game update logic here.
+        
+                // check for collision with all the four walls for all the three sides of the ship
+                if(this.ship.shipX + this.ship.shipWidth / 2 >= this.canvas.width){
+                    this.ship.shipX = this.canvas.width - this.ship.shipWidth / 2;
+                }else if(this.ship.shipX - this.ship.shipWidth / 2 <= 0){
+                    this.ship.shipX = this.ship.shipWidth / 2;
+                }else if(this.ship.shipY + this.ship.shipHeight / 2 >= this.canvas.height){
+                    this.ship.shipY = this.canvas.height - this.ship.shipHeight / 2;
+                }else if(this.ship.shipY - this.ship.shipHeight / 2 <= 0){
+                    this.ship.shipY = this.ship.shipHeight / 2;
+                } 
             }
           
             draw() {
-              this.drawShip();
+                this.ship.draw(this.ctx);
             }
 
             updateStartScreen(){
@@ -165,8 +157,7 @@
             }
 
             gameLoop(){
-                
-                
+                  
                 if(this.gameOver){
                     this.updateGameOverScreen();
                     return;
@@ -195,6 +186,86 @@
           // Ship class
           class Ship {
             // Constructor and methods for the Ship class.
+            constructor(canvas){
+                this.canvas = canvas;
+                this.ctx = canvas.getContext("2d");
+                this.shipX = canvas.width / 2;
+                this.shipY = canvas.height / 2;
+                this.shipWidth = 40;
+                this.shipHeight = 40;
+                // rotation variables
+                this.rotation = 0;
+                this.rotationSpeed = 0.0;
+
+            }
+
+            drawShip(ctx){
+                // store the current context 
+                ctx.save();
+                
+                // convert degrees to radians
+                let radians = this.rotation * Math.PI / 180;
+                
+                // translate the canvas origin to the center of the ship
+                ctx.translate(this.shipX + this.shipWidth / 2, this.shipY + this.shipHeight / 2);
+                ctx.rotate(radians);
+                
+                // Draw the spaceship in the shape of a triangle and add 
+                ctx.beginPath();
+                ctx.moveTo(-this.shipWidth / 2, -this.shipHeight / 2); // Adjusted coordinates
+                ctx.lineTo(this.shipWidth / 2, -this.shipHeight / 2);
+                ctx.lineTo(0, this.shipHeight / 2); // Adjusted coordinates
+                ctx.closePath();
+                
+                // Set the fill color
+                ctx.fillStyle = 'blue';
+                
+                // Fill the ship shape
+                ctx.fill();
+                
+                // Set the stroke color and draw an outline
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.restore();
+
+
+            }
+            update(event){
+                if(event.type=="keydown"){
+                    this.rotationSpeed = 15.0;
+                    // rotate the ship by 10 degrees
+                    if(event.key === "ArrowLeft"){
+                        this.rotation -= this.rotationSpeed;
+                    }
+
+                    // rotate the ship by 10 degrees
+                    if(event.key === "ArrowRight"){
+                        this.rotationSpeed = 15.0;
+                        this.rotation += this.rotationSpeed;
+                        
+                    }
+                }else if (event.type=="keyup"){
+                    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                        // Set the rotation speed to 0 or any desired value to stop rotation
+                        this.rotationSpeed = 0;
+                    }
+                }
+            }
+
+            draw(ctx){
+                // Clear the canvas
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.drawShip(ctx);
+            }
+
+            reset(){
+                this.x = this.canvas.width / 2;
+                this.y = this.canvas.height / 2;
+               
+            }
+
           }
           
           // Bullet class
@@ -690,14 +761,13 @@
             function startAsteroids(gameInstance){
                 clearCanvas();
                 gameInstance.gameLoop();
+                
             }
 
             // Game selection UI
             const gameButtons = document.querySelectorAll(".game-button");
             gameButtons.forEach((button)=> {
                 button.addEventListener("click", () => {
-                     
-
                     // You can load up different games using the following logic
                     const selectedGame = button.getAttribute("data-game");
                     if(selectedGame === "pong"){
