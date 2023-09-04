@@ -98,6 +98,8 @@
               this.init();
               this.keyDownEvent = {};
               document.addEventListener("keydown", this.keyDownHandler.bind(this));
+              this.keyUpEvent = {};
+                document.addEventListener("keyup", this.keyUpHandler.bind(this));
 
             }
             // All my utility functions will be here for drawing etc
@@ -106,14 +108,19 @@
                 this.keyDownEvent = event;
                 this.ship.update(this.keyDownEvent);
             }
+
+            keyUpHandler(event){
+                event.preventDefault();
+                this.keyUpEvent = event;
+                this.ship.update(this.keyUpEvent);
+            }
             
             init() {
               // Initialize your game here, e.g., creating initial asteroids.
             }
           
             update() {
-                // Your game update logic here.
-                this.ship.update(this.keyDownEvent);
+        
                 // check for collision with all the four walls for all the three sides of the ship
                 if(this.ship.shipX + this.ship.shipWidth / 2 >= this.canvas.width){
                     this.ship.shipX = this.canvas.width - this.ship.shipWidth / 2;
@@ -188,7 +195,7 @@
                 this.shipHeight = 40;
                 // rotation variables
                 this.rotation = 0;
-                this.rotationSpeed = 0.5;
+                this.rotationSpeed = 0.0;
 
             }
 
@@ -226,14 +233,24 @@
 
             }
             update(event){
-                // rotate the ship by 10 degrees
-                if(event.key === "ArrowLeft"){
-                    this.rotation -= this.rotationSpeed;
-                }
+                if(event.type=="keydown"){
+                    this.rotationSpeed = 15.0;
+                    // rotate the ship by 10 degrees
+                    if(event.key === "ArrowLeft"){
+                        this.rotation -= this.rotationSpeed;
+                    }
 
-                // rotate the ship by 10 degrees
-                if(event.key === "ArrowRight"){
-                    this.rotation += this.rotationSpeed;
+                    // rotate the ship by 10 degrees
+                    if(event.key === "ArrowRight"){
+                        this.rotationSpeed = 15.0;
+                        this.rotation += this.rotationSpeed;
+                        
+                    }
+                }else if (event.type=="keyup"){
+                    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                        // Set the rotation speed to 0 or any desired value to stop rotation
+                        this.rotationSpeed = 0;
+                    }
                 }
             }
 
