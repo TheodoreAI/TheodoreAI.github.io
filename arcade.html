@@ -25,25 +25,28 @@
                             <ul class="dropdown-menu m-3 p-2" aria-labelledby="dropdownMenuButton1">
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(197, 0, 21);" data-game="pong">Pong</button></li>
                               <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(42, 122, 162);" data-game="breakout">Breakout</button></li>
-                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids</button></li>
+                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids (In Progress)</button></li>
                             </ul>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="bg-dark">
-                {{!-- here you will render the compiled rust code that will run on the browser the game --}}
+                
                 <div class="row" id="gameOne">
                     <div class="col-12 d-flex justify-content-center align-items-center" style="height: 60vh;">
                         <canvas id="pongCanvas" width="700" height="500" style="background-color: rgb(216, 230, 232);"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                
+            <div class="card-footer m-3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a class="btn btn-danger text-light" href="/">Back</a>
+                    </div>
+                </div>
             </div>
-            
-
         </div>
    </div>
    
@@ -846,10 +849,11 @@
             });
            
         });
+
     </script>
-   <script
-      src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
-      crossorigin='anonymous'
-    ></script>
+    <script
+        src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
+        crossorigin='anonymous'
+        ></script>
 </body>
 </html>
