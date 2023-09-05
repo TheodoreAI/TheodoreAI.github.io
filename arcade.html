@@ -102,11 +102,46 @@
                 document.addEventListener("keyup", this.keyUpHandler.bind(this));
 
             }
+
+            shootBullet(){
+
+                // Calculate bullet velocity based on ship's rotation
+                const radians = this.ship.rotation * (Math.PI / 180);
+                const bulletSpeed = 5; // Adjust the bullet speed as needed
+
+                const bulletVelocityX = bulletSpeed * Math.sin(radians);
+                const bulletVelocityY = -bulletSpeed * Math.cos(radians); // Negative sign due to flipped y-axis
+
+                const bulletStartX = this.ship.shipX;
+                const bulletStartY = this.ship.shipY;
+                
+                const newBullet = new Bullet(this.canvas, bulletStartX, bulletStartY, this.ship.rotation, bulletVelocityX, bulletVelocityY);
+                this.bullets.push(newBullet);
+
+
+
+            }
             // All my utility functions will be here for drawing etc
             keyDownHandler(event){
                 event.preventDefault();
                 this.keyDownEvent = event;
                 this.ship.update(this.keyDownEvent);
+                switch(event.key){
+                    case "ArrowLeft":
+                        this.ship.update(this.keyDownEvent);
+                        break;
+                    case "ArrowRight":
+                        this.ship.update(this.keyDownEvent);
+                        break;
+                    case "s":
+                        // create a new bullet
+                        this.shootBullet();
+                        console.log("shoot bullets", this.bullets);
+                        break;
+
+                    default:
+                        break;
+                }
             }
 
             keyUpHandler(event){
@@ -120,17 +155,7 @@
             }
           
             update() {
-        
-                // check for collision with all the four walls for all the three sides of the ship
-                if(this.ship.shipX + this.ship.shipWidth / 2 >= this.canvas.width){
-                    this.ship.shipX = this.canvas.width - this.ship.shipWidth / 2;
-                }else if(this.ship.shipX - this.ship.shipWidth / 2 <= 0){
-                    this.ship.shipX = this.ship.shipWidth / 2;
-                }else if(this.ship.shipY + this.ship.shipHeight / 2 >= this.canvas.height){
-                    this.ship.shipY = this.canvas.height - this.ship.shipHeight / 2;
-                }else if(this.ship.shipY - this.ship.shipHeight / 2 <= 0){
-                    this.ship.shipY = this.ship.shipHeight / 2;
-                } 
+    
             }
           
             draw() {
@@ -172,6 +197,11 @@
                 }
                 this.update();
                 this.draw();
+                 // Iterate through the bullets array and update/draw each bullet
+                 this.bullets.forEach((bullet) => {
+                    bullet.update();
+                    bullet.draw();
+                });
                 requestAnimationFrame(this.gameLoop.bind(this));
             }
           
@@ -196,6 +226,7 @@
                 // rotation variables
                 this.rotation = 0;
                 this.rotationSpeed = 0.0;
+                this.bullet = {};
 
             }
 
@@ -235,16 +266,16 @@
             update(event){
                 if(event.type=="keydown"){
                     this.rotationSpeed = 15.0;
-                    // rotate the ship by 10 degrees
-                    if(event.key === "ArrowLeft"){
-                        this.rotation -= this.rotationSpeed;
-                    }
+                    switch(event.key){
+                        case "ArrowLeft":
+                            this.rotation -= this.rotationSpeed;
+                            break;
 
-                    // rotate the ship by 10 degrees
-                    if(event.key === "ArrowRight"){
-                        this.rotationSpeed = 15.0;
-                        this.rotation += this.rotationSpeed;
-                        
+                        case "ArrowRight":
+                            this.rotation += this.rotationSpeed;
+                            break;
+                        default:
+                            break;
                     }
                 }else if (event.type=="keyup"){
                     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
@@ -271,7 +302,33 @@
           // Bullet class
           class Bullet {
             // Constructor and methods for the Bullet class.
-          }
+            constructor(canvas, x, y, rotation, velocityX, velocityY){
+                this.canvas = canvas;
+                this.ctx = canvas.getContext("2d");
+                this.x = x + 15;
+                this.y = y;
+                this.velocityX = - velocityX;
+                this.velocityY = -velocityY;
+                this.rotation = rotation;
+                this.speed = 5; // Adjust the speed as needed  
+            }
+
+            draw(){
+                // Draw the bullet shape (e.g., a simple circle)
+                this.ctx.beginPath();
+                this.ctx.arc(this.x, this.y, 4, 0, 4 * Math.PI);
+                this.ctx.fillStyle = 'red'; // Set the fill color
+                this.ctx.fill();
+
+            }
+
+            update(){
+                // Update bullet position based on rotation
+               
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+            }
+        }
           
           // Particle class
           class Particle {
