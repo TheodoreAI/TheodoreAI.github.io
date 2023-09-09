@@ -115,10 +115,10 @@
                 const bulletVelocityX = bulletSpeed * Math.sin(radians);
                 const bulletVelocityY = -bulletSpeed * Math.cos(radians); // Negative sign due to flipped y-axis
 
-                const bulletStartX = this.ship.shipX;
-                const bulletStartY = this.ship.shipY;
+                const bulletStartX = this.ship.shipX + this.ship.shipWidth / 2;
+                const bulletStartY = this.ship.shipY + this.ship.shipHeight / 2 ;
                 
-                const newBullet = new Bullet(this.canvas, bulletStartX, bulletStartY, this.ship.rotation, bulletVelocityX, bulletVelocityY);
+                const newBullet = new Bullet(this.canvas, radians, bulletStartX, bulletStartY, this.ship.rotation, bulletVelocityX, bulletVelocityY);
                 this.bullets.push(newBullet);
 
 
@@ -305,10 +305,11 @@
           // Bullet class
           class Bullet {
             // Constructor and methods for the Bullet class.
-            constructor(canvas, x, y, rotation, velocityX, velocityY){
+            constructor(canvas, radians, x, y, rotation, velocityX, velocityY){
                 this.canvas = canvas;
+                this.radians = radians;
                 this.ctx = canvas.getContext("2d");
-                this.x = x + 15;
+                this.x = x;
                 this.y = y;
                 this.velocityX = - velocityX;
                 this.velocityY = -velocityY;
@@ -318,10 +319,15 @@
 
             draw(){
                 // Draw the bullet shape (e.g., a simple circle)
+                // the bullet will come out at half of the width of the ship and at the tip so the height of the ship
+                this.ctx.save();
+                 // convert degrees to radians
                 this.ctx.beginPath();
-                this.ctx.arc(this.x, this.y, 4, 0, 4 * Math.PI);
+                this.ctx.arc(this.x + 0*Math.cos(this.radians), this.y + 0*Math.sin(this.radians), 4, 0, 4 * Math.PI);
                 this.ctx.fillStyle = 'red'; // Set the fill color
                 this.ctx.fill();
+                this.ctx.closePath();
+                this.ctx.restore();
 
             }
 
