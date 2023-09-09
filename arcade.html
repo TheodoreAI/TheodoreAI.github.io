@@ -231,6 +231,9 @@
                 this.rotationSpeed = 0.0;
                 this.bullet = {};
 
+                // thrust of the ship
+                this.thrust = 0;
+
             }
 
             drawShip(ctx){
@@ -269,6 +272,7 @@
             update(event){
                 if(event.type=="keydown"){
                     this.rotationSpeed = 15.0;
+                    this.thrust = 15.0;
                     switch(event.key){
                         case "ArrowLeft":
                             this.rotation -= this.rotationSpeed;
@@ -276,6 +280,15 @@
 
                         case "ArrowRight":
                             this.rotation += this.rotationSpeed;
+                            break;
+                        case "ArrowUp":
+                            this.shipY += this.thrust * Math.cos(this.rotation * (Math.PI / 180));
+                            this.shipX -= this.thrust * Math.sin(this.rotation * (Math.PI / 180));
+                            break;
+
+                        case "ArrowDown": 
+                            this.shipY -= this.thrust * Math.cos(this.rotation * (Math.PI / 180));
+                            this.shipX += this.thrust * Math.sin(this.rotation * (Math.PI / 180));
                             break;
                         default:
                             break;
