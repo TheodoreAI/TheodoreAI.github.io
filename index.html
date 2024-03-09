@@ -40,9 +40,9 @@
     </div>  
   </div>
 <div class="">
-    <h2>For serious inquiries</h2>
+    <h3>For serious inquiries</h3>
     <hr>
-    <a class="fs-3 btn btn-primary" id="count" href="mailto:mateoej12@gmail.com" type="button">Contact Me</a>
+    <a class="fs-4 btn btn-primary" id="count" href="mailto:mateoej12@gmail.com" type="button">Contact Me</a>
 </div> 
   <!--  this is the timer -->
 <script>
@@ -69,7 +69,7 @@
       + minutes + "m " + seconds + "s ";
     
       // If the count down is over, write some text
-      if (distance < 0) {
+      if (distance <= 0) {
         clearInterval(interval);
         document.getElementById("count").innerHTML = "EXPIRED";
       }
