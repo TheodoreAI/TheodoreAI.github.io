@@ -34,7 +34,7 @@
       <a href="https://theodoreai.github.io/grammar-editor-ai/"> <button type="button" class="topCenterButton my-auto">Chat Bot</button></a>
     </div>
     <div class="middle">
-      <h3>Spring 2024</h3>
+      <h3 class="text-light">Spring 2024</h3>
       <hr>
       <p class="text-light" id="count"></p>
     </div>  
@@ -48,9 +48,9 @@
 <script>
   // Set the date we're counting down to
   let countDownDate = new Date("May 01, 2024 00:00:00").getTime();
+  let deadline = countDownDate;
   // Update the count down every 1 second
   setInterval(function(){
-
       // Get today's date and time
       let now = new Date().getTime();
     
@@ -74,13 +74,13 @@
         document.getElementById("count").innerHTML = "EXPIRED";
       }
   }, 1000);
-  </script>
+</script>
 </body>
 <style>
     .footer-contact {
-        margin: auto;
         text-align: center;
         background-color: rgb(24, 94, 118);
+        padding: 5vh;
     }
 </style>
 </html>

@@ -10,7 +10,7 @@ body, html {
 
 .bgimg {
   /* background img*/
-  background-image: linear-gradient(rgb(41, 41, 131), white);
+  background-image: linear-gradient(rgb(9, 9, 116), rgb(24, 94, 118));
     /* Full-screen */
   height: 100%;
   /* Center the background image */
