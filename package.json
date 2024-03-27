@@ -1,7 +1,9 @@
 {
+  "name": "theodoreai",
+  "version": "1.0.0",
   "devDependencies": {
     "eslint-plugin-html": "^8.0.0"
   },
-  "dependencies": {},
+  "dependencies": {}
   
 }
