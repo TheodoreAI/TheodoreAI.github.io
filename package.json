@@ -4,6 +4,10 @@
   "devDependencies": {
     "eslint-plugin-html": "^8.0.0"
   },
-  "dependencies": {}
-  
+  "scripts": {
+    "serve": "yarn http-server"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
 }
