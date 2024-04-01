@@ -9,6 +9,7 @@
 <head>
   <meta charset="utf-8">
   <title>Home Page</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="index.css" rel="stylesheet" type="text/css" /> <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
@@ -16,18 +17,18 @@
 </head>
 
 
-<body class="bgimg">
+<body class="bg-dark">
   <!--Adds the link to the js file, changes the font-size of an object in the html file-->
   <div class="">
     <div class="topCenter">
-      <h1 class="heading lead">TheodoreAI</h1>
+      <h1 class="heading lead text-light">TheodoreAI</h1>
       <div class="container fst-5">
         <div class="card">
           <div id="titleId"></div>
           <div class="card-body text-start">
             <p>My name is Mateo Estrada Jorge. I am a software developer @osu. I was previously @nasa.
               My academic interests are computer programming languages, high performance computing, network security, and <a href="https://github.com/NotNihalx/CS362_Team_Project" target="_blank">neural networks</a>.
-              My career interests are <a href="" target="_blank">The Rust Programming Language</a>, <a href="" target="_blank">APIs</a>, and Monoliths.
+              My career interests are <a href="" target="_blank">The Rust Programming Language</a>, <a href="https://theodoreai.github.io/Curiosity-Rover/" target="_blank">APIs</a>, and Monoliths.
               I love the ocean and have worked with the <a href="https://blogs.oregonstate.edu/gemmlab/tag/data-analysis/" target="_blank">Hatfield Marine Science center</a>.</p>
           </div>
         </div>
@@ -44,6 +45,7 @@
                 </div>
                 <div class="card-footer">
                   <small class="text-muted"><a href="https://github.com/TheodoreAI?tab=repositories"> <button type="button" class="btn btn-secondary btn-sm shadow-md my-auto">Current Stack</button></a></small>
+                  <small class="text-muted"><a href="https://theodoreai.github.io/Curiosity-Rover/"> <button type="button" class="btn btn-primary btn-sm shadow-md my-auto">API Example</button></a></small>
                 </div>
               </div>
             </div>
@@ -68,8 +70,8 @@
                   <p class="card-text">There's room for something creative maybe? I guess what if we look at some <a href="https://www.lbma.org/" target="_blank">art</a>? </p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted"> <a href="https://all-in-one-tattoo.herokuapp.com"> <button type="button" class="btn btn-secondary btn-sm shadow-md my-auto">Studio</button></a>
                     <a href="https://theodoreai.github.io/grammar-editor-ai/"> <button type="button" class="btn btn-secondary btn-sm shadow-md my-auto">Chat Bot</button></a></small>
+                    <small class="text-muted"> <a href="https://all-in-one-tattoo.herokuapp.com"> <button type="button" class="btn btn-primary btn-sm shadow-md my-auto">Studio</button></a>
                 </div>
               </div>
             </div>
@@ -89,7 +91,7 @@
     </div>
   </div>
 
-<footer class="footer d-flex flex-wrap justify-content-between align-items-center mt-3 py-3 border-top">
+<footer class="mx-2 bottom-0 bg-primary d-flex flex-wrap justify-content-between align-items-center mt-3 py-3 border-top rounded-3">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
@@ -115,10 +117,4 @@
   targetElement.textContent = "Under Development"; // Option 1: Display raw text
 </script>
 </body>
-<style>
-   .footer{
-    height: 5rem;
-    background-color: darkblue;
-   }
-</style>
 </html>

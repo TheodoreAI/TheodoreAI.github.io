@@ -8,22 +8,7 @@ body, html {
   width: 40%;
 }
 
-.bgimg {
-  /* background img*/
-  background-image: linear-gradient(rgb(24, 94, 118),rgb(9, 9, 116));
-    /* Full-screen */
-  height: 100%;
-  /* Center the background image */
-  background-position: center;
-  /* Scale and zoom in the image */
-  background-size: cover;
-  /* Add position: relative to enable absolutely positioned elements inside the image (place text) */
-  position: relative;
-  /* Add a white text color to all elements inside the .bgimg container */
-  color: white;
-  /* Add a font */
-  font-family: "Courier New", Courier, monospace;
-}
+
 
 /* Position text in the top-left corner */
 .topCenter {
