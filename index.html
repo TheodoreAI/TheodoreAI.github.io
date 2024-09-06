@@ -26,12 +26,12 @@
         <div class="card">
           <div id="titleId"></div>
           <div class="card-body text-start">
-           Currently accepting freelance projects with the following tech stack: Postgresql, Apache, Python/JavaScript. 
+           <p>Currently accepting freelance projects with the following tech stack: Postgresql, Apache, Python/JavaScript.</p> 
+           <input id="searchBox" class="form-group" type="text"/>
+           <button id="searchButton" class="btn btn-primary">Search</button>
           </div>
-          <div id="apiContainer" class="card-footer text-start">
-              <input id="searchBox" class="form-group" type="text"/>
-              <button id="searchButton" class="btn btn-primary">Search</button>
-          </div>
+<!--           DOM HERE   -->
+          <div id="apiContainer" class="card-footer text-center"></div>
         </div>
            
         <div class="my-3">
@@ -135,7 +135,7 @@
       const searchTerm = searchBox.value;
       const url = apiEndpoint + searchTerm;
       // Lets fetch
-      fetch(url).then(response => response.json()).then(data => {console.log(data); targetApiContainer.textContent = data; }).catch(error => console.error("Error", error));
+      fetch(url).then(response => response.json()).then(data => {console.log(data); targetApiContainer.textContent = data[0]; }).catch(error => console.error("Error", error));
       
   };
 
