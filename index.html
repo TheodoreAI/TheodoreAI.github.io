@@ -24,14 +24,22 @@
       <h1 class="heading lead text-light">TheodoreAI</h1>
       <div class="container fst-5">
         <div class="card">
-          <div id="titleId"></div>
-          <div class="card-body text-start">
-           <p>Currently accepting freelance projects with the following tech stack: Postgresql, Apache, Python/JavaScript.</p> 
-           <input id="searchBox" class="form-group" type="text"/>
-           <button id="searchButton" class="btn btn-primary">Search</button>
+         
+          <div class="card-header text-start">
+            <p>Currently accepting freelance projects with the following tech stack: Postgresql, Apache, Python/JavaScript.</p> 
+          </div>
+          <div class="card-body">
+            <p id="numFound"></p>
+            <p id="firstSentence"></p>
           </div>
 <!--           DOM HERE   -->
-          <div id="apiContainer" class="card-footer text-center"></div>
+          <div class="card-footer text-center text-dark">
+            <div class="row">
+              <div class="col-6 text-start"><label for="searchBox" class="form-label">Search the Open Library</label></div>
+              <div class="col-4"><input id="searchBox" class="form-control" type="text"/></div>
+              <div class="col-2 text-center"><button id="searchButton" class="btn btn-primary">Search</button></div>
+            </div>
+          </div>
         </div>
            
         <div class="my-3">
@@ -99,7 +107,7 @@
       <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
       </a>
-      <p class="mb-3 mb-md-0 text-light">© 2024</p>
+      <p class="mb-3 mb-md-0 text-light fw-bold" id="titleId"></p>
     </div>
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex text-light mx-3">
       <li class="ms-3"><a class="text-light" href="https://theodoreai.github.io/grammar-editor-ai/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-robot mx-auto my-auto" viewBox="0 0 16 16">
@@ -122,20 +130,31 @@
   <!--  this is the timer -->
 <script>
   const targetElement = document.getElementById('titleId');
-  targetElement.textContent = "Since 2019"; // Option 1: Display raw text
+  targetElement.textContent = "2019-" + new Date().getFullYear(); // Option 1: Display raw text
 
 
     // API setup 
   function searchDatabase(){
       
-      const targetApiContainer = document.getElementById('apiContainer');
+      const targetNumFound = document.getElementById('numFound');
+      const targetFirstSentence = document.getElementById('firstSentence');
       const apiEndpoint = "https://openlibrary.org/search.json?q=";
     
       const searchBox = document.getElementById("searchBox");
       const searchTerm = searchBox.value;
       const url = apiEndpoint + searchTerm;
       // Lets fetch
-      fetch(url).then(response => response.json()).then(data => {console.log(data); targetApiContainer.textContent = data[0]; }).catch(error => console.error("Error", error));
+      fetch(url).then(response => 
+        response.json()).then(data =>
+         {
+          console.log(data);
+          if(data.numFound > 0){
+            targetNumFound.textContent = data.numFound + " copies found!"; 
+            targetFirstSentence.textContent = data.docs[0].first_sentence[0];
+          }else{
+            targetNumFound.textContent = "No copies found :("
+          }
+        }).catch(error => console.error("Error", error));
       
   };
 
