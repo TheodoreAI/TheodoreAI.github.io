@@ -28,6 +28,10 @@
           <div class="card-body text-start">
            Currently accepting freelance projects with the following tech stack: Postgresql, Apache, Python/JavaScript. 
           </div>
+          <div id="apiContainer" class="card-footer text-start">
+           
+          </div>
+            
         </div>
            
         <div class="my-3">
@@ -119,6 +123,14 @@
 <script>
   const targetElement = document.getElementById('titleId');
   targetElement.textContent = "Since 2019"; // Option 1: Display raw text
+
+
+    // API setup 
+
+  const targetApiContainer = document.getElementById('apiContainer');
+  const apiEndpoint = "https://openlibrary.org/search.json?q=";
+  // Lets fetch
+    fetch(apiEndpoint).then(response => response.json()).then(data => {console.log(data); targetApiContainer.textContent = data; }).catch(error => console.error("Error", error));
 </script>
 </body>
 </html>
