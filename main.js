@@ -92,8 +92,18 @@ canvas.addEventListener('click', (event) => {
   }
 });
 
+let lightRotationAngle = 0;
+const lightRotationSpeed = 0.001; // Adjust this value to change rotation speed
+
 function animate() {
   controls.update();
+
+  // Rotate the light source
+  lightRotationAngle += lightRotationSpeed;
+  light.position.x = 5 * Math.cos(lightRotationAngle);
+  light.position.z = 5 * Math.sin(lightRotationAngle);
+  lightSphere.position.copy(light.position);
+
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
