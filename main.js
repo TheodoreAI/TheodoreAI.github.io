@@ -88,7 +88,7 @@ canvas.addEventListener('click', (event) => {
   if (intersects.length > 0) {
     // If the card is clicked, flip it and navigate
     card.rotation.y += Math.PI;
-    window.location.href = 'index-1.html';
+    window.location.href = 'pages/main.html';
   }
 });
 
