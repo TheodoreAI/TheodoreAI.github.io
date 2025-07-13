@@ -16,8 +16,7 @@ camera.position.set(0, 0, 10);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 controls.enablePan = false;
-controls.autoRotate = true;
-controls.autoRotateSpeed = 1.5;
+controls.autoRotate = false; // Scene will not rotate automatically
 
 const light = new THREE.SpotLight(0xffffff, 1.5);
 light.position.set(5, 10, 5);
@@ -35,6 +34,36 @@ const lightSphereMat = new THREE.MeshStandardMaterial({
 const lightSphere = new THREE.Mesh(lightSphereGeo, lightSphereMat);
 lightSphere.position.copy(light.position);
 scene.add(lightSphere);
+
+// === Particle Effect ===
+const particleCount = 150;
+const particleGeometry = new THREE.BufferGeometry();
+const positions = new Float32Array(particleCount * 3);
+const baseY = new Float32Array(particleCount);
+const phases = new Float32Array(particleCount);
+
+for (let i = 0; i < particleCount; i++) {
+  // Spread particles in a sphere around the card
+  const radius = 3.5 + Math.random() * 2.5;
+  const theta = Math.random() * 2 * Math.PI;
+  const phi = Math.random() * Math.PI;
+  positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+  positions[i * 3 + 1] = radius * Math.cos(phi); // Y
+  positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+  baseY[i] = positions[i * 3 + 1];
+  phases[i] = Math.random() * Math.PI * 2;
+}
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+const particleMaterial = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 0.09,
+  transparent: true,
+  opacity: 0.7,
+});
+
+const particles = new THREE.Points(particleGeometry, particleMaterial);
+scene.add(particles);
 
 
 // === Shadow Setup ===
@@ -92,19 +121,30 @@ canvas.addEventListener('click', (event) => {
   }
 });
 
-let lightRotationAngle = 0;
-const lightRotationSpeed = 0.001; // Adjust this value to change rotation speed
+// Removed light rotation variables; light will remain fixed
+
+// For particle animation
+const particleFloatSpeed = 0.7; // speed of floating
+const particleFloatHeight = 0.25; // amplitude
 
 function animate() {
   controls.update();
 
-  // Rotate the light source
-  lightRotationAngle += lightRotationSpeed;
-  light.position.x = 5 * Math.cos(lightRotationAngle);
-  light.position.z = 5 * Math.sin(lightRotationAngle);
+  // Keep the light and sphere stationary
   lightSphere.position.copy(light.position);
+
+  // Rotate the contact card slowly
+  card.rotation.y += 0.003;
+
+  // Animate particles (gentle floating)
+  const positions = particleGeometry.getAttribute('position');
+  const time = performance.now() * 0.001;
+  for (let i = 0; i < particleCount; i++) {
+    positions.array[i * 3 + 1] = baseY[i] + Math.sin(time * particleFloatSpeed + phases[i]) * particleFloatHeight;
+  }
+  positions.needsUpdate = true;
 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
-}
+} 
 animate();

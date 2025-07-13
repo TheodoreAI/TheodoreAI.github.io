@@ -2,10 +2,16 @@
   "name": "theodoreai",
   "version": "1.0.0",
   "devDependencies": {
-    "eslint-plugin-html": "^8.0.0"
+    "eslint": "^9.31.0",
+    "eslint-plugin-html": "^8.0.0",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2"
   },
   "scripts": {
-    "serve": "yarn http-server"
+    "serve": "yarn http-server",
+    "lint": "eslint . --ext .js,.html",
+    "lint:fix": "eslint . --ext .js,.html --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "http-server": "^14.1.1"
