@@ -1,55 +1,78 @@
-/* this will enable the background to be a complete image and also to cover the entire page */
-body, html {
+/* General Body Styles */
+body {
   height: 100%;
-
-}
-.hr {
-  margin: auto;
-  width: 40%;
+  font-family: 'Arial', sans-serif;
 }
 
-
-
-/* Position text in the top-left corner */
-.topCenter {
-  position: relative;
-  text-align: center;
-  font-weight: bold;
-  margin: 10px;
-  padding: 5px
-
-}
-.topCenter .heading{
-  font-size: 40px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Child elements of the topcenter div. */
-
-.topCenterButton{
-  width: 100px;
-  height: 50px;
-  background-color: #4F8AC4;
+/* Hero Section Styles */
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080?technology') no-repeat center center fixed;
+  background-size: cover;
   color: white;
-  border-radius: 8px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: medium;
-}
-.topCenterButton:hover{
-  color: black;
-  background-color: #B03B4C;
-  font-weight: bold;
+  padding: 100px 0;
 }
 
-/* Position The clock and the coming date in the middle */
-.middle {
-  margin-top: 100px;
-  position: absolute;
-  margin-left: 50%;
-  margin-right: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: black;
+.hero-section h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
 }
-/* Style the Footer for the general page */
 
+.hero-section p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+}
+
+/* Section Padding */
+section {
+  padding: 60px 0;
+}
+
+/* About Section */
+.about-section .list-group-item {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Projects Section */
+.projects-section .card {
+  background-color: #343a40; /* Darker background for cards */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.projects-section .card-title {
+  color: #007bff; /* Bootstrap primary blue */
+}
+
+.projects-section .card-text {
+  color: #ced4da; /* Light gray for text */
+}
+
+.projects-section .card-footer {
+  background-color: #495057; /* Slightly lighter dark for footer */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Contact Section */
+.contact-section .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.contact-section .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #007bff !important; /* Ensure primary color for footer */
+  color: white;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: #ced4da;
+}
