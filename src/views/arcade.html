@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arcade</title>
+    <link
+        href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
+        rel='stylesheet'
+        integrity='sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM'
+        crossorigin='anonymous'
+      />
+</head>
+<body class="bg-dark">
+   <div class="container">
+        {{!-- games will be here --}}
+        <div class="bg-dark">
+            <div class="text-center text-light">
+                <div class="text-center"><h1>Arcade Games</h1></div>
+                <div class="row">
+                    <p class="lead text-center">Please select a game you would like to play</p>
+                    <div class="game-selection text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Select A Game
+                            </button>
+                            <ul class="dropdown-menu m-3 p-2" aria-labelledby="dropdownMenuButton1">
+                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(197, 0, 21);" data-game="pong">Pong</button></li>
+                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(42, 122, 162);" data-game="breakout">Breakout</button></li>
+                              <li class="row m-1 p-2"><button class="game-button btn btn-primary dropdown-item text-light text-center rounded-1" style="background-color: rgb(136, 42, 162);" data-game="asteroids">Asteroids (In Progress)</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="bg-dark">
+                
+                <div class="row" id="gameOne">
+                    <div class="col-12 d-flex justify-content-center align-items-center" style="height: 60vh;">
+                        <canvas id="pongCanvas" width="700" height="500" style="background-color: rgb(216, 230, 232);"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer m-3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a class="btn btn-danger text-light" href="/">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+   
+    <script type="module">
+
+        // the asteroids game has the following: AsteroidsGame, Asteroid, Ship, Bullet, and Particle classes 
+        // each of those classes will have a draw and update method and a constructor
+        // the game will have a game loop that will call the update and draw methods of each class
+        // the game will have a keydown event listener to move the ship
+        // the game will have a keyup event listener to stop the ship from moving
+        // the game will have a mousemove event listener to rotate the ship
+        // the game will have a click event listener to shoot bullets
+        // the game will have a collision detection method to detect collisions between the ship and asteroids
+        // the game will have a collision detection method to detect collisions between bullets and asteroids
+        // the game will have a collision detection method to detect collisions between the ship and particles
+        // the game will have a collision detection method to detect collisions between asteroids and particles
+        // the game will have a collision detection method to detect collisions between bullets and particles
+        // then the game will have a method to remove the asteroids, bullets, and particles from the game
+        // the game will have a method to add asteroids, bullets, and particles to the game
+        // the game will have a method to reset the game
+        // the game will have a method to update the score
+        // the game will have a method to update the lives
+        // the game will have a method to update the level
+        // the game will have a method to update the high score
+        // the game will have a method to update the game over screen
+        // the game will have a method to update the pause screen
+        // the game will have a method to update the start screen
+
+        // Lets start with the AsteroidGame class
+        // this class has the following properties: canvas, ctx, ship, asteroids, bullets, particles, score, lives, level, highScore, gameOver, paused, startScreen, pauseScreen, gameOverScreen
+        // this class has the following methods: update, draw, keyDownHandler, keyUpHandler, mouseMoveHandler, clickHandler, collisionDetection, removeAsteroids, removeBullets, removeParticles, addAsteroids, addBullets, addParticles, reset, updateScore, updateLives, updateLevel, updateHighScore, updateGameOverScreen, updatePauseScreen, updateStartScreen, gameLoop
+        // this class has the following constructor: canvas, mouseX
+        // this class has the following event listeners: keydown, keyup, mousemove, click
+        // this class has the following variables: LEFT_BOUNDARY, RIGHT_BOUNDARY, TOP_BOUNDARY, BOTTOM_BOUNDARY, ASTEROID_SPEED, BULLET_SPEED, PARTICLE_SPEED, ASTEROID_RADIUS, BULLET_RADIUS, PARTICLE_RADIUS, SHIP_RADIUS, ASTEROID_VERTICES, ASTEROID_BREAKUP_VERTICES, ASTEROID_BREAKUP_SPEED, ASTEROID_BREAKUP_COUNT, ASTEROID_BREAKUP_SIZE, ASTEROID_BREAKUP_ROTATION, ASTEROID_BREAKUP_ROTATION_SPEED, ASTEROID_BREAKUP_LIFE, ASTEROID_BREAKUP_COLOR, ASTEROID_BREAKUP_ALPHA, ASTEROID_BREAKUP_ALPHA_SPEED, ASTEROID_BREAKUP_ALPHA_MIN, ASTEROID_BREAKUP_ALPHA_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION, ASTEROID_BREAKUP_ALPHA_DIRECTION_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_NONE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MIN, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_MAX, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_INCREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_DECREASE, ASTEROID_BREAKUP_ALPHA_DIRECTION_RANDOM_NONE
+        class AsteroidsGame {
+            constructor(canvas) {
+              this.canvas = canvas;
+              this.ctx = canvas.getContext("2d");
+              this.ship = new Ship(canvas);
+              this.asteroids = [];
+              this.bullets = [];
+              this.particles = [];
+              this.score = 0;
+              this.lives = 3;
+              this.level = 1;
+              this.highScore = 0;
+              this.gameOver = false;
+              this.paused = false;
+              this.startScreen = false;
+              this.pauseScreen = false;
+              this.gameOverScreen = false;
+              this.init();
+              this.keyDownEvent = {};
+              document.addEventListener("keydown", this.keyDownHandler.bind(this));
+              this.keyUpEvent = {};
+                document.addEventListener("keyup", this.keyUpHandler.bind(this));
+
+            }
+
+            shootBullet(){
+
+                // Calculate bullet velocity based on ship's rotation
+                const radians = this.ship.rotation * (Math.PI / 180);
+                const bulletSpeed = 5; // Adjust the bullet speed as needed
+
+                const bulletVelocityX = bulletSpeed * Math.sin(radians);
+                const bulletVelocityY = -bulletSpeed * Math.cos(radians); // Negative sign due to flipped y-axis
+
+                const bulletStartX = this.ship.shipX + this.ship.shipWidth / 2;
+                const bulletStartY = this.ship.shipY + this.ship.shipHeight / 2 ;
+                
+                const newBullet = new Bullet(this.canvas, radians, bulletStartX, bulletStartY, this.ship.rotation, bulletVelocityX, bulletVelocityY);
+                this.bullets.push(newBullet);
+
+
+
+            }
+            // All my utility functions will be here for drawing etc
+            keyDownHandler(event){
+                event.preventDefault();
+                this.keyDownEvent = event;
+                this.ship.update(this.keyDownEvent);
+                switch(event.key){
+                    case "ArrowLeft":
+                        this.ship.update(this.keyDownEvent);
+                        break;
+                    case "ArrowRight":
+                        this.ship.update(this.keyDownEvent);
+                        break;
+                    case "s":
+                        // create a new bullet
+                        this.shootBullet();
+                        console.log("shoot bullets", this.bullets);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            keyUpHandler(event){
+                event.preventDefault();
+                this.keyUpEvent = event;
+                this.ship.update(this.keyUpEvent);
+            }
+            
+            init() {
+              // Initialize your game here, e.g., creating initial asteroids.
+            }
+          
+            update() {
+    
+            }
+          
+            draw() {
+                this.ship.draw(this.ctx);
+            }
+
+            updateStartScreen(){
+                // draw the start screen
+                this.ctx.font = "40px Arial";
+                this.ctx.fillStyle = "black";
+                this.ctx.fillText("Asteroids", this.canvas.width / 2 - 60, this.canvas.height / 4);
+                this.ctx.font = "20px Arial";
+                this.ctx.fillText("Click to start", this.canvas.width / 2 - 60, this.canvas.height / 2);
+
+                // make the game start when the user clicks the mouse button
+                this.canvas.addEventListener("click", () => {
+                    // alert 
+                    this.startScreen = false;
+                    // start the game loop
+                    // delete the the start screen
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.gameLoop();
+                });
+            }
+
+            gameLoop(){
+                  
+                if(this.gameOver){
+                    this.updateGameOverScreen();
+                    return;
+                }
+                if(this.paused){
+                    this.updatePauseScreen();
+                    return;
+                }
+                if(this.startScreen){
+                    this.updateStartScreen();
+                    return;
+                }
+                this.update();
+                this.draw();
+                 // Iterate through the bullets array and update/draw each bullet
+                 this.bullets.forEach((bullet) => {
+                    bullet.update();
+                    bullet.draw();
+                });
+                requestAnimationFrame(this.gameLoop.bind(this));
+            }
+          
+            // Other methods like keyDownHandler, keyUpHandler, etc.
+          }
+          
+          // Asteroid class
+          class Asteroid {
+            // Constructor and methods for the Asteroid class.
+          }
+          
+          // Ship class
+          class Ship {
+            // Constructor and methods for the Ship class.
+            constructor(canvas){
+                this.canvas = canvas;
+                this.ctx = canvas.getContext("2d");
+                this.shipX = canvas.width / 2;
+                this.shipY = canvas.height / 2;
+                this.shipWidth = 40;
+                this.shipHeight = 40;
+                // rotation variables
+                this.rotation = 0;
+                this.rotationSpeed = 0.0;
+                this.bullet = {};
+
+                // thrust of the ship
+                this.thrust = 0;
+
+            }
+
+            drawShip(ctx){
+                // store the current context 
+                ctx.save();
+                
+                // convert degrees to radians
+                let radians = this.rotation * Math.PI / 180;
+                
+                // translate the canvas origin to the center of the ship
+                ctx.translate(this.shipX + this.shipWidth / 2, this.shipY + this.shipHeight / 2);
+                ctx.rotate(radians);
+                
+                // Draw the spaceship in the shape of a triangle and add 
+                ctx.beginPath();
+                ctx.moveTo(-this.shipWidth / 2, -this.shipHeight / 2); // Adjusted coordinates
+                ctx.lineTo(this.shipWidth / 2, -this.shipHeight / 2);
+                ctx.lineTo(0, this.shipHeight / 2); // Adjusted coordinates
+                ctx.closePath();
+                
+                // Set the fill color
+                ctx.fillStyle = 'blue';
+                
+                // Fill the ship shape
+                ctx.fill();
+                
+                // Set the stroke color and draw an outline
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                ctx.restore();
+
+            }
+            update(event){
+                if(event.type=="keydown"){
+                    this.rotationSpeed = 15.0;
+                    this.thrust = 15.0;
+                    switch(event.key){
+                        case "ArrowLeft":
+                            this.rotation -= this.rotationSpeed;
+                            break;
+
+                        case "ArrowRight":
+                            this.rotation += this.rotationSpeed;
+                            break;
+                        case "ArrowUp":
+                            this.shipY += this.thrust * Math.cos(this.rotation * (Math.PI / 180));
+                            this.shipX -= this.thrust * Math.sin(this.rotation * (Math.PI / 180));
+                            break;
+
+                        case "ArrowDown": 
+                            this.shipY -= this.thrust * Math.cos(this.rotation * (Math.PI / 180));
+                            this.shipX += this.thrust * Math.sin(this.rotation * (Math.PI / 180));
+                            break;
+                        default:
+                            break;
+                    }
+                }else if (event.type=="keyup"){
+                    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                        // Set the rotation speed to 0 or any desired value to stop rotation
+                        this.rotationSpeed = 0;
+                    }
+                }
+            }
+
+            draw(ctx){
+                // Clear the canvas
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.drawShip(ctx);
+            }
+
+            reset(){
+                this.x = this.canvas.width / 2;
+                this.y = this.canvas.height / 2;
+               
+            }
+
+          }
+          
+          // Bullet class
+          class Bullet {
+            // Constructor and methods for the Bullet class.
+            constructor(canvas, radians, x, y, rotation, velocityX, velocityY){
+                this.canvas = canvas;
+                this.radians = radians;
+                this.ctx = canvas.getContext("2d");
+                this.x = x;
+                this.y = y;
+                this.velocityX = - velocityX;
+                this.velocityY = -velocityY;
+                this.rotation = rotation;
+                this.speed = 5; // Adjust the speed as needed  
+            }
+
+            draw(){
+                // Draw the bullet shape (e.g., a simple circle)
+                // the bullet will come out at half of the width of the ship and at the tip so the height of the ship
+                this.ctx.save();
+                 // convert degrees to radians
+                this.ctx.beginPath();
+                this.ctx.arc(this.x + 0*Math.cos(this.radians), this.y + 0*Math.sin(this.radians), 4, 0, 4 * Math.PI);
+                this.ctx.fillStyle = 'red'; // Set the fill color
+                this.ctx.fill();
+                this.ctx.closePath();
+                this.ctx.restore();
+
+            }
+
+            update(){
+                // Update bullet position based on rotation
+               
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+            }
+        }
+          
+          // Particle class
+          class Particle {
+            // Constructor and methods for the Particle class.
+          }
+
+        // Breakout game logic
+        class BreakoutGame {
+            constructor(canvas, mouseX){
+                this.canvas = canvas;
+                this.ctx = canvas.getContext("2d");
+                this.paddle = new Paddle(canvas);
+                this.ball = new Ball(canvas);
+                this.numberBricks = 50;
+                this.paused = false;
+                this.numberLives = 3;
+                this.colors = ["rgb(204, 77, 80)"];
+                this.gameOver = false;
+
+                // Create the bricks in a single array
+                this.bricks = [];
+
+                // init random value in the range of the length of the colors array
+                this.makesBricks(this.colors);
+                
+                
+                this.mouseX = canvas.width / 2;
+                canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+
+            }
+             
+            handleMouseMove(event){
+                this.mouseX = event.clientX - this.canvas.getBoundingClientRect().left;
+            }
+
+            makesBricks(colors){
+                for (let i = 0; i < this.numberBricks; i++) {
+                    // Calculate the brick's x and y position based on its index
+                    const brickX = (i % 6) * 100;
+                    const brickY = Math.floor(i / 6) * 20;
+                    const positionX = brickX + 10;
+                    const positionY = brickY + 10;
+
+                    // Get a random color from the colors array
+                    // make a new seed for the random number generator each time
+                    const randomColor = Math.floor(Math.random() * colors.length);
+                    const r = colors[randomColor];
+                    this.bricks.push(new Brick(this.canvas, positionX, positionY, r)); // Pass canvas and other parameters here
+                }
+            }
+
+            resetBricksArray(){
+                // clear the bricks array
+                this.bricks = [];
+                // init random value in the range of the length of the colors array
+                this.makesBricks(this.colors);
+            }
+
+            update(){
+                if(this.numberLives === 0){
+                    this.gameOver = true;
+                    // exit the update loop
+                    return;
+                }
+                 // check for collision with the bottom wall 
+                if (this.ball.y + this.ball.radius >= this.canvas.height && !this.lostLife) {
+                    // make sure the number of lives is decremented only once per collision
+                    this.paused = true;
+                    this.numberLives--;
+                    console.log("collision with bottom wall");
+                    this.continueGame();
+                    
+                }
+
+                this.ball.update(this.ctx); // update the ball
+                // update the paddle with the mouseX position
+                this.paddle.update(this.mouseX);
+                
+               
+                
+                // Check for collision with the paddle
+                if (
+                    this.ball.y + this.ball.radius >= this.paddle.y &&
+                    this.ball.y - this.ball.radius <= this.paddle.y + this.paddle.height &&
+                    this.ball.x + this.ball.radius >= this.paddle.x &&
+                    this.ball.x - this.ball.radius <= this.paddle.x + this.paddle.width
+                ) {
+                    // Collision with the paddle
+                    // Reverse the ball's y-direction to bounce it off the paddle
+                    this.ball.dy = -this.ball.dy;
+                }
+
+                // Iterate through the bricks and check for collision with the ball
+                for (let i = 0; i < this.bricks.length; i++) {
+                    const brick = this.bricks[i];
+
+                    // Check for collision with the ball
+                    if (
+                        this.ball.x + this.ball.radius > brick.x &&
+                        this.ball.x - this.ball.radius < brick.x + brick.width &&
+                        this.ball.y + this.ball.radius > brick.y &&
+                        this.ball.y - this.ball.radius < brick.y + brick.height
+                    ) {
+                        // Collision with a brick
+                        this.ball.dy = -this.ball.dy; // Reverse the ball's y-direction
+                        this.bricks.splice(i, 1); // Remove the brick from the array
+                    }
+                }
+            }
+
+            draw(){
+                // clear canvas
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // draw the game elements
+                this.ball.draw(this.ctx);
+                this.paddle.draw(this.ctx);
+                this.bricks.forEach((brick) => {
+                    brick.draw(this.ctx);
+                });
+
+                // draw the number of lives to the top left corner of the screen
+                this.ctx.font = "30px Arial";
+                this.ctx.fillStyle = "black";
+                this.ctx.fillText("Lives: " + this.numberLives, 10, 30);
+
+            }
+            
+            continueGame(){
+                this.ball.reset();
+                this.paddle.reset();
+                this.resetBricksArray();
+                this.paused = false;
+            }
+            // game loop to setup the update, draw, and requestAnimationFrame
+            gameLoop(){
+                if(this.gameOver){
+                    
+                    console.log("game over");
+                    this.ctx.font = "40px Arial";
+                    this.ctx.fillStyle = "black";
+                    this.ctx.fillText("Game Over", this.canvas.width / 2 - 50, this.canvas.height / 4);  
+                    return;
+                }
+                this.update();
+                this.draw();
+                requestAnimationFrame(this.gameLoop.bind(this));
+            }
+        }
+
+
+        // Ball class
+        class Ball {
+            constructor(canvas){
+                this.canvas = canvas;
+                this.x = 200;
+                this.y = 200;
+                this.dx = 5;
+                this.dy = -5;
+                this.radius = 10;
+                this.LEFT_BOUNDARY = 0;
+                this.RIGHT_BOUNDARY = canvas.width;
+                this.TOP_BOUNDARY = 0;
+                this.BOTTOM_BOUNDARY = canvas.height;
+            }
+
+            getVerticalSpeed(){
+                return this.dy;
+            }
+
+            update(){
+                // Move the ball
+                this.x += this.dx;
+                this.y += this.dy;
+
+                // Check for collision with the walls and reverse the direction of the ball
+                if (this.x + this.radius >= this.RIGHT_BOUNDARY || this.x - this.radius <= this.LEFT_BOUNDARY) {
+                    this.dx = -this.dx;
+                }
+
+                // Check for collision with the top wall
+                if (this.y - this.radius <= this.TOP_BOUNDARY) {
+                    this.dy = -this.dy;
+                }
+
+                // Check for collision with the bottom wall
+                if (this.y + this.radius >= this.BOTTOM_BOUNDARY) {
+                    this.dy = 0;
+                    this.dx = 0;
+                }
+
+            }
+
+            draw(ctx){
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = "black";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            reset(){
+                this.x = this.canvas.width / 2;
+                this.y = this.canvas.height / 2;
+                this.dx = 5;
+                this.dy = -5;
+            }
+        }
+
+        // Paddle class
+
+        class Paddle {
+            constructor(canvas){
+                this.canvas = canvas;
+                this.width = 100;
+                this.height = 20;
+                this.x = canvas.width / 2 - this.width / 2;
+                this.y = canvas.height - this.height - 10;
+                this.dx = 5;
+                this.dy = 0;
+            }
+
+            update(mouseX){
+                // move the paddle
+                this.x = mouseX - this.width / 2;
+                // ensure the paddle does not go off the screen
+                if(this.x < 0){
+                    this.x = 0;
+                }else if(this.x + this.width > this.canvas.width){
+                    this.x = this.canvas.width - this.width;
+                }
+            }
+
+            draw(ctx){
+                ctx.beginPath();
+                ctx.rect(this.x, this.y, this.width, this.height);
+                ctx.fillStyle = "black";
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            reset(){
+                this.x = this.canvas.width / 2 - this.width / 2;
+                this.y = this.canvas.height - this.height - 10;
+                this.dx = 5;
+                this.dy = 0;
+            }
+        }
+
+        // Brick class
+
+        class Brick {
+            constructor(canvas, x, y, color){
+                this.canvas = canvas;
+                this.width = 100;
+                this.height = 20;
+                this.color = color;
+                this.x = x;
+                this.y = y;
+                this.dx = 5;
+                this.dy = 5;
+            }
+
+            update(ctx){}
+
+            draw(ctx){
+                ctx.beginPath();
+                ctx.rect(this.x, this.y, this.width, this.height);
+                ctx.strokeStyle = "white";
+                ctx.fillStyle = this.color;
+                ctx.stroke();
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            reset(){
+                this.x = x;
+                this.y = y;
+                this.dx = 5;
+                this.dy = 5;
+            }
+
+        }
+
+
+
+        // Class based logic
+        class PongGame {
+            constructor(canvas){
+                this.canvas = canvas;
+                this.ctx = canvas.getContext("2d");
+                this.score = 0;
+                this.paused = false;
+                this.playButton = this.drawPlayButton();
+                this.playButton.addEventListener("click", () => {
+                  
+                    this.play();
+                    // change the canvas background color
+                    this.canvas.style.backgroundColor = "rgb(130, 192, 201)";
+                    // remove the play button from the DOM after the game has started
+                    this.playButton.remove();
+                });
+               
+
+                // init ball properties
+                this.ballX = this.canvas.width / 2;
+                this.ballY = this.canvas.height / 2;
+                this.ballSpeedX = 0;
+                this.ballSpeedY = 0;
+
+
+                // init paddle properties
+
+                this.paddleWidth = 10;
+                this.paddleHeight = 100;
+                this.leftPaddleY = this.canvas.height / 2 - this.paddleHeight / 2;
+                this.rightPaddleY = this.canvas.height / 2 - this.paddleHeight / 2;
+
+                // set up mouse movement listener
+                this.canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+
+                this.update();
+
+            }
+
+            // draw start button
+            drawPlayButton(){
+                // make a button to start the game by setting the ball speed to 5
+                const playButton = document.createElement("button");
+                playButton.innerText = "Play";
+                document.body.appendChild(playButton);
+                // put the button in the middle of the screen
+                playButton.style.position = "absolute";
+                playButton.style.top = "40%";
+                playButton.style.left = "50%";
+                playButton.style.transform = "translate(-50%, -50%)";
+                playButton.className = "btn btn-primary btn-lg";
+                return playButton;
+            }
+
+            // start game
+
+            play(){
+                // start the game
+                this.ballSpeedX = 3;
+                this.ballSpeedY = 3;
+                this.ballX = this.canvas.width / 2;
+                this.ballY = this.canvas.height / 2;
+                this.score = 0;
+                this.paused = false;
+            }
+
+            //handle mouse move
+            handleMouseMove(event){
+                // Get the mouse position
+                const rect = this.canvas.getBoundingClientRect();
+                const root = document.documentElement;
+                const mouseY = event.clientY - rect.top - root.scrollTop;
+
+                // Move both paddles
+                this.leftPaddleY = mouseY - this.paddleHeight / 2;
+                this.rightPaddleY = mouseY - this.paddleHeight / 2;
+
+                // Prevent the paddles from moving off the screen
+                if (this.leftPaddleY < 0) {
+                    this.leftPaddleY = 0;
+                }
+
+                if (this.leftPaddleY > this.canvas.height - this.paddleHeight) {
+                    this.leftPaddleY = this.canvas.height - this.paddleHeight;
+                }
+
+                if (this.rightPaddleY < 0) {
+                    this.rightPaddleY = 0;
+                }
+
+                if (this.rightPaddleY > this.canvas.height - this.paddleHeight) {
+                    this.rightPaddleY = this.canvas.height - this.paddleHeight;
+                }
+            }
+
+            // draw walls 
+            
+
+
+            // draw the scoreboard 
+            drawScore(){
+                // make a score board on the top left corner of the screen in the canvas
+                this.ctx.font = "30px Arial";
+                this.ctx.fillStyle = "black";
+                this.ctx.fillText("Score: " + this.score, 10, 30);
+
+            }
+            // update game logic
+            update(){
+            
+                // Move the ball
+                this.ballX += this.ballSpeedX;
+                this.ballY += this.ballSpeedY;
+
+                this.drawScore();
+
+                // Check collision with top and bottom walls
+                if (this.ballY < 0 || this.ballY > this.canvas.height) {
+                    this.ballSpeedY = -this.ballSpeedY;
+                }
+
+                // check collision with left and right walls
+                if (this.ballX < 0 || this.ballX > this.canvas.width) {
+                    this.ballSpeedX = 0;
+                    this.ballSpeedY = 0;
+                    this.paused = true;
+                    return;
+                }
+
+                // Check collision with left paddle
+                if (this.ballX < this.paddleWidth && this.ballY > this.leftPaddleY && this.ballY < this.leftPaddleY + this.paddleHeight) {
+                    this.ballSpeedX = -(this.ballSpeedX - .5); // Reflect the ball's horizontal motion
+                    this.score++;
+                   
+                }
+
+                // Check collision with right paddle
+                if (
+                    this.ballX > this.canvas.width - this.paddleWidth && // Right edge of ball
+                    this.ballY > this.rightPaddleY && this.ballY < this.rightPaddleY + this.paddleHeight // Within paddle's vertical range
+                ) {
+                    this.ballSpeedX = -(this.ballSpeedX + .5); // Reflect the ball's horizontal motion
+                    this.score++;
+                }
+
+                // clear canvas
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw paddles
+                this.ctx.fillStyle = "black";
+                this.ctx.fillRect(0, this.leftPaddleY, this.paddleWidth, this.paddleHeight);
+                this.ctx.fillRect(this.canvas.width - this.paddleWidth, this.rightPaddleY, this.paddleWidth, this.paddleHeight);
+
+                // Draw the ball
+                this.ctx.beginPath();
+                this.ctx.arc(this.ballX, this.ballY, 10, 0, Math.PI * 2);
+                this.ctx.fillStyle = "black";
+                this.ctx.fill();
+
+              
+            }
+
+
+        }
+
+        // Wait for the DOM to be loaded
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get the canvas element
+            const canvas = document.getElementById("pongCanvas");
+            const ctx = canvas.getContext("2d");
+
+            let currentGame = null;
+
+            function clearCanvas(){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            // function to start new game
+            function startGame(selectedGame){
+                // clear cavnas before starting a new game
+                clearCanvas();
+
+                // init the selected game
+                currentGame = selectedGame;
+                // start the game loop
+                update();
+            }
+
+            // main update loop
+            function update(){
+                if(currentGame){
+                    currentGame.update();
+                    requestAnimationFrame(update);
+                }
+            }
+            function startBreakout(gameInstance){
+                clearCanvas();
+                gameInstance.gameLoop();
+            }
+
+            function startAsteroids(gameInstance){
+                clearCanvas();
+                gameInstance.gameLoop();
+                
+            }
+
+            // Game selection UI
+            const gameButtons = document.querySelectorAll(".game-button");
+            gameButtons.forEach((button)=> {
+                button.addEventListener("click", () => {
+                    // You can load up different games using the following logic
+                    const selectedGame = button.getAttribute("data-game");
+                    if(selectedGame === "pong"){
+                       
+                        window[selectedGame] = new PongGame(canvas);
+                        startGame(window[selectedGame]);
+                    }
+                    if(selectedGame === "breakout"){
+                        window[selectedGame] = new BreakoutGame(canvas);
+                        startBreakout(window[selectedGame]);
+                    }
+                    if(selectedGame === "asteroids"){
+                        window[selectedGame] = new AsteroidsGame(canvas);
+                        startAsteroids(window[selectedGame]);
+                    }
+                   
+                });
+
+            });
+           
+        });
+
+    </script>
+    <script
+        src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
+        crossorigin='anonymous'
+        ></script>
+</body>
+</html>
