@@ -1,5 +1,7 @@
 node_modules
-dist
+public
+src
+vue-project
 .DS_Store
 *.local
 .env
