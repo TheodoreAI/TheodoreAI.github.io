@@ -35,56 +35,56 @@
 .tile1 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: left top;
 }
 
 .tile2 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: center top;
 }
 
 .tile3 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: right top;
 }
 
 .tile4 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: left center;
 }
 
 .tile5 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: center center;
 }
 
 .tile6 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: right center;
 }
 
 .tile7 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: left bottom;
 }
 
 .tile8 {
 width: 300px;
 height: 300px;
-background: url(img_website/sunflower.png)
+background: url(img_website/sunflower.png);
 background-position: center bottom;
 }
 
