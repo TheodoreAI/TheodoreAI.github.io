@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: process.env.NODE_ENV === 'production' ? '/TheodoreAI.github.io/' : '/',
+  base: '/TheodoreAI.github.io/',
   resolve: {
     alias: {
       'three/addons/': 'three/examples/jsm/'
@@ -13,13 +13,9 @@ export default defineConfig({
     include: ['three']
   },
   build: {
+    // Ensure all dependencies are bundled for static hosting
     rollupOptions: {
-      external: [],
-      output: {
-        manualChunks: {
-          three: ['three']
-        }
-      }
+      // No external or manualChunks for app build
     }
   }
 }) 
