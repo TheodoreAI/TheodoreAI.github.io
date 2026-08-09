@@ -12,7 +12,7 @@ container.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x8fc7e8);
-scene.fog = new THREE.Fog(0xbcdcee, 35, 90);
+scene.fog = new THREE.Fog(0xbcdcee, 55, 110);
 
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
 camera.position.set(0, 22, 38);
