@@ -13,7 +13,7 @@ container.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-camera.position.set(6, 5, 7);
+camera.position.set(6, 4.2, 8.5);
 
 // Expose for claude-scene-inspector (window.__sceneDebug via snippets/three-scene-walker.js)
 window.scene = scene;
@@ -51,7 +51,7 @@ scene.add(rim);
 // separated by mesa-etched isolation gaps.
 const STACK_WIDTH = 8;
 const STACK_DEPTH = 3;
-const SUBSTRATE_HEIGHT = 0.6;
+const SUBSTRATE_HEIGHT = 1.1;
 const SEMI_HEIGHT = 0.25;
 
 const substrateMat = new THREE.MeshStandardMaterial({ color: 0x555a63, roughness: 0.85, metalness: 0.1 });
@@ -83,7 +83,7 @@ const padStartX = -totalPadSpan / 2;
 
 const padMat = new THREE.MeshStandardMaterial({ color: 0xd8d8d8, roughness: 0.35, metalness: 0.75 });
 const pads = [];
-const padLabels = ['Pad A (r=0.28)', 'Pad B (r=0.36)', 'Pad C (r=0.46)', 'Pad D (r=0.58)', 'Pad E (r=0.72)'];
+const padNames = ['A', 'B', 'C', 'D', 'E'];
 
 padRadii.forEach((radius, i) => {
   const pad = new THREE.Mesh(
@@ -93,7 +93,9 @@ padRadii.forEach((radius, i) => {
   pad.position.set(padStartX + i * padGap, SEMI_HEIGHT + padHeight / 2, 0);
   pad.castShadow = true;
   pad.receiveShadow = true;
-  pad.userData.label = padLabels[i];
+  pad.userData.name = padNames[i];
+  pad.userData.radius = radius;
+  pad.userData.label = `Pad ${padNames[i]} (r=${radius})`;
   scene.add(pad);
   pads.push(pad);
 
@@ -121,6 +123,63 @@ ground.rotation.x = -Math.PI / 2;
 ground.position.y = -SUBSTRATE_HEIGHT - 0.01;
 ground.receiveShadow = true;
 scene.add(ground);
+
+// === Always-visible pad radius tags ===
+// A screenshot of the scene should convey the TLM geometry on its own,
+// without requiring a click — so each pad gets a small persistent tag
+// in addition to the bigger click-to-highlight label below.
+const padTags = pads.map((pad) => {
+  const div = document.createElement('div');
+  div.className = 'pad-tag';
+  div.textContent = `${pad.userData.name} · r=${pad.userData.radius}`;
+  container.appendChild(div);
+  return { pad, div };
+});
+
+function updatePadTags() {
+  padTags.forEach(({ pad, div }) => {
+    const vector = pad.position.clone();
+    vector.y += pad.geometry.parameters.height / 2 + 0.06;
+    vector.project(camera);
+    const x = (vector.x * 0.5 + 0.5) * container.clientWidth;
+    const y = (-vector.y * 0.5 + 0.5) * container.clientHeight;
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+  });
+}
+
+// === Current-path visualization ===
+// Illustrates what the structure actually measures: current forced between
+// a pair of adjacent contacts, through the semiconductor layer beneath them.
+const CURRENT_PAIR = [1, 2]; // pads B -> C
+const arcStart = pads[CURRENT_PAIR[0]].position;
+const arcEnd = pads[CURRENT_PAIR[1]].position;
+const arcMid = new THREE.Vector3(
+  (arcStart.x + arcEnd.x) / 2,
+  SEMI_HEIGHT + 0.55,
+  (arcStart.z + arcEnd.z) / 2
+);
+const arcCurve = new THREE.QuadraticBezierCurve3(
+  new THREE.Vector3(arcStart.x, SEMI_HEIGHT + padHeight, arcStart.z),
+  arcMid,
+  new THREE.Vector3(arcEnd.x, SEMI_HEIGHT + padHeight, arcEnd.z)
+);
+const arcPoints = arcCurve.getPoints(40);
+const arcGeometry = new THREE.BufferGeometry().setFromPoints(arcPoints);
+const arcMaterial = new THREE.LineBasicMaterial({ color: 0xffb703, transparent: true, opacity: 0.9 });
+const currentArc = new THREE.Line(arcGeometry, arcMaterial);
+scene.add(currentArc);
+
+// A small glowing sphere travels along the arc to read as "current flowing"
+// rather than a static line.
+const currentDotGeo = new THREE.SphereGeometry(0.05, 16, 16);
+const currentDotMat = new THREE.MeshStandardMaterial({
+  color: 0xffb703,
+  emissive: 0xffb703,
+  emissiveIntensity: 1.2,
+});
+const currentDot = new THREE.Mesh(currentDotGeo, currentDotMat);
+scene.add(currentDot);
 
 // === Click-to-label interaction ===
 const raycaster = new THREE.Raycaster();
@@ -175,6 +234,12 @@ function animate() {
   pads.forEach((pad) => {
     if (pad.userData.updateLabelPosition && activeLabel) pad.userData.updateLabelPosition();
   });
+  updatePadTags();
+
+  // Animate the current-flow dot back and forth along the arc.
+  const t = (Math.sin(performance.now() * 0.0012) + 1) / 2;
+  currentDot.position.copy(arcCurve.getPoint(t));
+
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }

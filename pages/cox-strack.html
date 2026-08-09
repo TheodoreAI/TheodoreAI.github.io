@@ -50,6 +50,15 @@
       color: #eee;
       font-size: 0.9rem;
     }
+    .pad-tag {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      color: #cfe0ff;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    }
   </style>
 </head>
 <body class="bg-dark text-light">
@@ -73,6 +82,7 @@
     <div id="scene-container">
       <div id="scene-loading">Loading&hellip;</div>
       <div id="scene-hint">Drag to orbit &middot; scroll to zoom &middot; click a contact pad</div>
+      <div id="scene-current-hint" class="position-absolute" style="right:12px; bottom:12px; color:#ffb703; font-size:0.8rem; opacity:0.85;">&#9679; Amber path = forced current between pads B &amp; C</div>
     </div>
 
     <div class="row mt-4">
@@ -97,6 +107,7 @@
           <li><span class="badge rounded-pill" style="background:#d8d8d8;">&nbsp;&nbsp;</span> Metal contact pad</li>
           <li class="mt-2"><span class="badge rounded-pill" style="background:#3a6ea5;">&nbsp;&nbsp;</span> Semiconductor layer</li>
           <li class="mt-2"><span class="badge rounded-pill" style="background:#555;">&nbsp;&nbsp;</span> Substrate</li>
+          <li class="mt-2"><span class="badge rounded-pill" style="background:#ffb703;">&nbsp;&nbsp;</span> Forced current path</li>
         </ul>
       </div>
     </div>
