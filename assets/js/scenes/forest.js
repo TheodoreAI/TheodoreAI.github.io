@@ -271,7 +271,7 @@ for (let i = 0; i < 9; i++) {
   cloud.scale.set(scale * 1.6, scale, 1);
   cloud.position.set(
     (cloudRand() - 0.5) * 90,
-    32 + cloudRand() * 10,
+    20 + cloudRand() * 8,
     (cloudRand() - 0.5) * 90
   );
   cloud.userData.driftSpeed = 0.15 + cloudRand() * 0.25;
