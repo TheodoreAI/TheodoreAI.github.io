@@ -2,10 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>3D Business Card</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mateo Estrada</title>
+  <meta name="description" content="Mateo Estrada's portfolio — click the business card to enter." />
   <style>
     body { margin: 0; overflow: hidden; background: linear-gradient(#111, #222); }
     canvas { display: block; width: 100vw; height: 100vh; }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #eee;
+      font: 16px/1.4 system-ui, sans-serif;
+      background: linear-gradient(#111, #222);
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    #loading.hidden { opacity: 0; }
+
+    #hint {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 32px;
+      text-align: center;
+      color: #eee;
+      font: 14px/1.4 system-ui, sans-serif;
+      opacity: 0.85;
+      pointer-events: none;
+      animation: pulse 2.2s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+    }
+    #hint.hidden { opacity: 0; }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    #enter-site {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      color: #eee;
+      font: 14px/1.4 system-ui, sans-serif;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 6px;
+      padding: 8px 14px;
+      background: rgba(0,0,0,0.25);
+    }
+    #enter-site:hover, #enter-site:focus {
+      background: rgba(0,0,0,0.5);
+      border-color: #fff;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
   </style>
   <script type="importmap">
     {
@@ -17,7 +77,19 @@
   </script>
 </head>
 <body>
+  <noscript>
+    <div style="color:#eee; font: 16px/1.5 system-ui, sans-serif; text-align:center; padding: 3rem 1.5rem;">
+      <p>This landing page needs JavaScript for its 3D animation.</p>
+      <p><a href="pages/main.html" style="color:#8fd3ff;">Continue to the site &rarr;</a></p>
+    </div>
+  </noscript>
+
   <canvas id="c"></canvas>
+
+  <div id="loading">Loading&hellip;</div>
+  <div id="hint" aria-hidden="true">Click the card to enter</div>
+  <a id="enter-site" href="pages/main.html">Enter site</a>
+
   <script type="module" src="main.js"></script>
 </body>
 </html>

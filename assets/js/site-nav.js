@@ -14,7 +14,6 @@ const SITE_NAVBAR_HTML = `
         <li class="nav-item"><a class="nav-link" href="/pages/portfolio.html">Portfolio</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/art.html">Art</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/arcade.html">Arcade</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pages/poems.html">Poems</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/contact_me.html">Contact</a></li>
       </ul>
     </div>

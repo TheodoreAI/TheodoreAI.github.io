@@ -72,14 +72,25 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 // === Card ===
 const loader = new THREE.TextureLoader();
+const loadingEl = document.getElementById('loading');
+const hintEl = document.getElementById('hint');
+
+let texturesLoaded = 0;
+const onTextureLoaded = () => {
+  texturesLoaded++;
+  if (texturesLoaded === 2 && loadingEl) {
+    loadingEl.classList.add('hidden');
+    setTimeout(() => loadingEl.remove(), 400);
+  }
+};
 
 const materials = [
   new THREE.MeshStandardMaterial({ color: 0x222 }), // right
   new THREE.MeshStandardMaterial({ color: 0x222 }), // left
   new THREE.MeshStandardMaterial({ color: 0x222 }), // top
   new THREE.MeshStandardMaterial({ color: 0x222 }), // bottom
-  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-front.png') }), // front
-  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-back.png') }),  // back
+  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-front.png', onTextureLoaded) }), // front
+  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-back.png', onTextureLoaded) }),  // back
 ];
 
 const geometry = new THREE.BoxGeometry(3.5, 2, 0.05); // like a real card
@@ -117,8 +128,16 @@ canvas.addEventListener('click', (event) => {
   if (intersects.length > 0) {
     // If the card is clicked, flip it and navigate
     card.rotation.y += Math.PI;
+    if (hintEl) hintEl.classList.add('hidden');
     window.location.href = 'pages/main.html';
   }
+});
+
+// === Resize ===
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
 // Removed light rotation variables; light will remain fixed
