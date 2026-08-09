@@ -119,9 +119,13 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 canvas.addEventListener('click', (event) => {
-  // Calculate mouse position in normalized device coordinates (-1 to +1)
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  // Calculate mouse position in normalized device coordinates (-1 to +1),
+  // relative to the canvas's own bounding rect (not the window) so this
+  // still works if the canvas is offset, letterboxed, or the window
+  // doesn't exactly match innerWidth/innerHeight (e.g. some embedded/debug browsers).
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
   // Update the raycaster with the camera and mouse position
   raycaster.setFromCamera(mouse, camera);
@@ -136,6 +140,11 @@ canvas.addEventListener('click', (event) => {
     window.location.href = 'pages/main.html';
   }
 });
+
+// The hint only appears once we reach this point, so its visibility doubles
+// as a "click now works" signal — useful when testing in a fresh browser
+// profile/window where it's not obvious whether the module has finished loading.
+if (hintEl) hintEl.classList.remove('hidden');
 
 // === Resize ===
 window.addEventListener('resize', () => {
