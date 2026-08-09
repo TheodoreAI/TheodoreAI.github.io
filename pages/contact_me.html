@@ -20,7 +20,7 @@
         {
             text-align: center;
         }
-.container {
+.photo-frame {
   position: relative;
   width: 50%;
   margin-left: auto;
@@ -50,11 +50,11 @@
   text-align: center;
 }
 
-.container:hover .image {
+.photo-frame:hover .image {
   opacity: 0.3;
 }
 
-.container:hover .middle {
+.photo-frame:hover .middle {
   opacity: 1;
 }
 
@@ -70,19 +70,20 @@
 </head>
 <body>
   <div id="site-navbar"></div>
+  <div class="container py-5 text-center">
     <!--This is the contact me content-->
-   <h1>
+    <h1>Contact</h1>
     <p>Email: See resume</p>
     <p>Phone: See Resume</p>
     <p>Thank you</p>
-   </h1>
     <!--photos of luna and nature-->
-<div class="container">
-  <img id="luna" class="image" src="../assets/images/snowvador.JPG"  alt="photo_luna">
-  <div class="middle">
-    <div class="text">"Snowvador Dali" </div>
+    <div class="photo-frame">
+      <img id="luna" class="image" src="../assets/images/snowvador.JPG" alt="photo_luna">
+      <div class="middle">
+        <div class="text">"Snowvador Dali" </div>
+      </div>
+    </div>
   </div>
-</div>
 
   <div id="site-footer"></div>
 </body>

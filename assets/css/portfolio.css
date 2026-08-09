@@ -8,10 +8,10 @@
     transform: rotate(90deg);
     }
 
-    .container {
+    .paloma-note {
       position: absolute;
       bottom: 8px;
-      left 16px;
+      left: 16px;
       height: 100%;
     }
     .top-left{
