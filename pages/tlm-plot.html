@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TLM Resistance Plot - TheodoreAI</title>
-  <meta name="description" content="Interactive 3D plot of total resistance vs. contact spacing from a transmission line measurement (TLM), showing how specific contact resistance and sheet resistance are extracted.">
+  <title>TLM vs. Cox &amp; Strack Resistance Plots - TheodoreAI</title>
+  <meta name="description" content="Interactive 3D plots comparing the two contact-resistance extraction methods from my physics thesis: transfer line measurement (TLM) and the Cox &amp; Strack method.">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="/assets/js/site-nav.js" defer></script>
@@ -69,6 +69,27 @@
       line-height: 1.5;
     }
     .result-card strong { color: #8fd3ff; }
+    .plot-toggle {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 2;
+    }
+    .plot-toggle button {
+      background: rgba(10,12,20,0.85);
+      border: 1px solid #3a6ea5;
+      color: #cfd8ea;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 0.4rem;
+      cursor: pointer;
+    }
+    .plot-toggle button.active {
+      background: #3a6ea5;
+      color: #fff;
+    }
   </style>
 </head>
 <body class="bg-dark text-light">
@@ -78,17 +99,22 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="3d.html" class="text-info">3D Scenes</a></li>
-        <li class="breadcrumb-item active text-light opacity-75" aria-current="page">TLM Resistance Plot</li>
+        <li class="breadcrumb-item active text-light opacity-75" aria-current="page">TLM vs. Cox &amp; Strack</li>
       </ol>
     </nav>
 
-    <h1>TLM Resistance Plot</h1>
+    <h1>TLM vs. Cox &amp; Strack Resistance Plots</h1>
     <p class="lead text-light opacity-75">
       The analysis step that turns the <a href="cox-strack.html" class="text-info">Cox &amp; Strack test structure</a>
-      into a real measurement: total resistance between each pair of adjacent contacts, plotted against their spacing.
+      into a real measurement — and the same comparison my thesis makes between the standard transfer line
+      measurement (TLM) method and the Cox &amp; Strack (C/S) method.
     </p>
 
     <div id="scene-container">
+      <div class="plot-toggle">
+        <button type="button" data-plot-mode="tlm" class="active">TLM</button>
+        <button type="button" data-plot-mode="cs">Cox &amp; Strack</button>
+      </div>
       <div id="scene-loading">Loading&hellip;</div>
       <div id="scene-hint">Drag to orbit &middot; scroll to zoom</div>
     </div>
