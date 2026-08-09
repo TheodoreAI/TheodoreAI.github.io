@@ -15,7 +15,7 @@ scene.background = new THREE.Color(0x8fc7e8);
 scene.fog = new THREE.Fog(0xbcdcee, 55, 110);
 
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 200);
-camera.position.set(0, 22, 38);
+camera.position.set(0, 16, 42);
 
 // Expose for claude-scene-inspector (window.__sceneDebug via snippets/three-scene-walker.js)
 window.scene = scene;
@@ -35,7 +35,7 @@ controls.dampingFactor = 0.08;
 controls.minDistance = 5;
 controls.maxDistance = 45;
 controls.maxPolarAngle = Math.PI / 2 - 0.02;
-controls.target.set(0, 1.5, 0);
+controls.target.set(0, 4, 0);
 
 // ============================================================
 // Procedural textures — everything below is drawn on a canvas
@@ -259,17 +259,20 @@ for (let i = 0; i < TREE_COUNT; i++) {
 // ============================================================
 // Clouds — drifting billboard sprites
 // ============================================================
-const cloudMat = new THREE.SpriteMaterial({ map: cloudTexture, transparent: true, depthWrite: false, opacity: 0.9 });
+const cloudMat = new THREE.SpriteMaterial({ map: cloudTexture, transparent: true, depthWrite: false, opacity: 0.75, fog: false });
 const clouds = [];
 const cloudRand = mulberry32(99);
-for (let i = 0; i < 14; i++) {
+// Kept well above the treeline (trees top out ~6 units) and spread over a
+// wider area than the forest floor so they read as distinct puffs in the
+// upper sky instead of stacking into a solid haze band near the horizon.
+for (let i = 0; i < 9; i++) {
   const cloud = new THREE.Sprite(cloudMat);
-  const scale = 4 + cloudRand() * 5;
+  const scale = 4 + cloudRand() * 4;
   cloud.scale.set(scale * 1.6, scale, 1);
   cloud.position.set(
-    (cloudRand() - 0.5) * 60,
-    14 + cloudRand() * 6,
-    (cloudRand() - 0.5) * 60
+    (cloudRand() - 0.5) * 90,
+    32 + cloudRand() * 10,
+    (cloudRand() - 0.5) * 90
   );
   cloud.userData.driftSpeed = 0.15 + cloudRand() * 0.25;
   scene.add(cloud);
