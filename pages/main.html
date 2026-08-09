@@ -21,6 +21,15 @@
       color: #6c8ebf;
       font-size: 3rem;
     }
+    .featured-card-preview {
+      height: 240px;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c8ebf;
+      font-size: 4rem;
+    }
   </style>
 </head>
 
@@ -34,6 +43,45 @@
       <h1 class="display-3 fw-bold">Welcome to My Portfolio</h1>
       <p class="lead">A showcase of my projects and skills in web development and beyond.</p>
       <a href="#projects" class="btn btn-primary btn-lg mt-3">View My Work</a>
+    </div>
+  </section>
+
+  <!-- Featured Work Section -->
+  <section id="featured" class="featured-section py-5 bg-dark">
+    <div class="container">
+      <h2 class="text-center mb-2">Featured: Interactive Physics Visualizations</h2>
+      <p class="text-center text-light opacity-75 mb-4">Three.js scenes built to explain the actual measurement technique from my undergraduate physics thesis on heterojunction solar cell contact resistance — not just a portfolio demo.</p>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+          <div class="card h-100 bg-secondary text-light border-0">
+            <div class="featured-card-preview">&#9679;</div>
+            <div class="card-body">
+              <h5 class="card-title">Cox &amp; Strack Test Structure</h5>
+              <p class="card-text">An interactive 3D model of the transmission line measurement (TLM) structure used to extract specific contact resistance at a metal-semiconductor interface — the actual test structure behind the thesis, not a stock diagram.</p>
+            </div>
+            <div class="card-footer border-0">
+              <a href="cox-strack.html" class="btn btn-primary btn-sm">View Scene</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 bg-secondary text-light border-0">
+            <div class="featured-card-preview">&#128200;</div>
+            <div class="card-body">
+              <h5 class="card-title">TLM Resistance Plot</h5>
+              <p class="card-text">The analysis step that turns the test structure into a real measurement: total resistance vs. contact spacing, extrapolated to separate specific contact resistance from sheet resistance.</p>
+            </div>
+            <div class="card-footer border-0">
+              <a href="tlm-plot.html" class="btn btn-primary btn-sm">View Scene</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center mt-4 mb-0">
+        <a href="/assets/pdf/SemiconductorThesis.pdf" target="_blank" rel="noopener" class="text-info">Read the full thesis (PDF)</a>
+        &middot;
+        <a href="3d.html" class="text-info">See all 3D scenes</a>
+      </p>
     </div>
   </section>
 
