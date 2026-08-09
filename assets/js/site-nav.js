@@ -13,6 +13,7 @@ const SITE_NAVBAR_HTML = `
         <li class="nav-item"><a class="nav-link" href="/pages/main.html">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/portfolio.html">Portfolio</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/art.html">Art</a></li>
+        <li class="nav-item"><a class="nav-link" href="/pages/3d.html">3D</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/arcade.html">Arcade</a></li>
         <li class="nav-item"><a class="nav-link" href="/pages/contact_me.html">Contact</a></li>
       </ul>

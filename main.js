@@ -13,6 +13,10 @@ scene.background = new THREE.Color(0x87CEEB); // Light sky blue
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 0, 10);
 
+// Expose for claude-scene-inspector (window.__sceneDebug via snippets/three-scene-walker.js)
+window.scene = scene;
+window.camera = camera;
+
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 controls.enablePan = false;

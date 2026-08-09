@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cox &amp; Strack Test Structure - TheodoreAI</title>
+  <meta name="description" content="Interactive 3D model of a Cox and Strack transmission line test structure, used to measure specific contact resistance in heterojunction solar cells.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="/assets/js/site-nav.js" defer></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    body { overflow-x: hidden; }
+    #scene-container {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 420px;
+      background: radial-gradient(circle at 50% 30%, #1b1f2e, #0b0d14);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    #scene-container canvas { display: block; }
+    #scene-hint {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      color: #cfd8ea;
+      font-size: 0.85rem;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+    #scene-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cfd8ea;
+      font-size: 0.95rem;
+    }
+    .pad-label {
+      color: #eee;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body class="bg-dark text-light">
+  <div id="site-navbar"></div>
+
+  <div class="container py-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="3d.html" class="text-info">3D Scenes</a></li>
+        <li class="breadcrumb-item active text-light opacity-75" aria-current="page">Cox &amp; Strack Test Structure</li>
+      </ol>
+    </nav>
+
+    <h1>Cox &amp; Strack Test Structure</h1>
+    <p class="lead text-light opacity-75">
+      A transmission line measurement (TLM) structure used to extract specific contact resistance
+      at a metal-semiconductor interface — the technique behind my undergraduate thesis on
+      heterojunction solar cell contact resistance.
+    </p>
+
+    <div id="scene-container">
+      <div id="scene-loading">Loading&hellip;</div>
+      <div id="scene-hint">Drag to orbit &middot; scroll to zoom &middot; click a contact pad</div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <h2 class="h4">How it works</h2>
+        <p>
+          Circular metal contacts of increasing radius are deposited on top of a semiconductor layer,
+          each electrically isolated by mesa etching down to the substrate. Current is forced between
+          pairs of contacts and the resulting voltage is measured. Because each contact has a different
+          radius (and therefore a different contact-to-substrate resistance path), plotting resistance
+          against contact geometry lets you separate the sheet resistance of the semiconductor from the
+          specific contact resistance at the metal interface — the quantity the Cox &amp; Strack method
+          solves for.
+        </p>
+        <p>
+          <a href="/assets/pdf/SemiconductorThesis.pdf" target="_blank" class="text-info">Read the full thesis (PDF)</a>
+        </p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="h4">Legend</h2>
+        <ul class="list-unstyled">
+          <li><span class="badge rounded-pill" style="background:#d8d8d8;">&nbsp;&nbsp;</span> Metal contact pad</li>
+          <li class="mt-2"><span class="badge rounded-pill" style="background:#3a6ea5;">&nbsp;&nbsp;</span> Semiconductor layer</li>
+          <li class="mt-2"><span class="badge rounded-pill" style="background:#555;">&nbsp;&nbsp;</span> Substrate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="../assets/js/scenes/cox-strack.js"></script>
+</body>
+</html>
