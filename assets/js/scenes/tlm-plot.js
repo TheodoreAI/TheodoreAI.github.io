@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { requireWebGLOrFail } from './webgl-check.js';
 
 const container = document.getElementById('scene-container');
 const loadingEl = document.getElementById('scene-loading');
+requireWebGLOrFail(loadingEl);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);

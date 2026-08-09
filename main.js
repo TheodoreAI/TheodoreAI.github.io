@@ -2,6 +2,25 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvas = document.getElementById('c');
+
+function isWebGLAvailable() {
+  try {
+    const testCanvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')));
+  } catch (e) {
+    return false;
+  }
+}
+
+if (!isWebGLAvailable()) {
+  const loadingEl = document.getElementById('loading');
+  if (loadingEl) {
+    loadingEl.innerHTML = 'Your browser can\'t display this 3D scene. <a href="pages/main.html" style="color:#8fd3ff;">Continue to the site &rarr;</a>';
+    loadingEl.classList.remove('hidden');
+  }
+  throw new Error('WebGL is not available in this browser.');
+}
+
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -87,14 +106,17 @@ const onTextureLoaded = () => {
     setTimeout(() => loadingEl.remove(), 400);
   }
 };
+const onTextureError = () => {
+  if (loadingEl) loadingEl.textContent = "Couldn't load — try refreshing.";
+};
 
 const materials = [
   new THREE.MeshStandardMaterial({ color: 0x222 }), // right
   new THREE.MeshStandardMaterial({ color: 0x222 }), // left
   new THREE.MeshStandardMaterial({ color: 0x222 }), // top
   new THREE.MeshStandardMaterial({ color: 0x222 }), // bottom
-  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-front.png', onTextureLoaded) }), // front
-  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-back.png', onTextureLoaded) }),  // back
+  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-front.png', onTextureLoaded, undefined, onTextureError) }), // front
+  new THREE.MeshBasicMaterial({ map: loader.load('./assets/assets/card-back.png', onTextureLoaded, undefined, onTextureError) }),  // back
 ];
 
 const geometry = new THREE.BoxGeometry(3.5, 2, 0.05); // like a real card
