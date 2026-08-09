@@ -123,19 +123,26 @@
       <div class="col-md-8">
         <h2 class="h4">How it works</h2>
         <p>
-          For a transmission line measurement, the total resistance between two adjacent contacts follows
+          My thesis compares two ways to extract specific contact resistance (<em>R<sub>c</sub></em>) at a
+          metal-semiconductor interface. Use the toggle above the scene to switch between them.
         </p>
+        <p><strong>TLM</strong> — total resistance between two adjacent contacts follows</p>
         <p class="text-center fs-5 text-info">R<sub>T</sub> = 2R<sub>c</sub> + (R<sub>sh</sub>/W)&middot;d</p>
         <p>
-          where <em>d</em> is the spacing between contacts, <em>W</em> is the contact width, <em>R<sub>sh</sub></em>
-          is the sheet resistance of the semiconductor layer, and <em>R<sub>c</sub></em> is the specific contact
-          resistance at the metal-semiconductor interface. Measuring <em>R<sub>T</sub></em> across several contact
-          pairs of different spacing and fitting a line lets you separate the two: the slope gives
-          <em>R<sub>sh</sub>/W</em>, and extrapolating back to <em>d = 0</em> gives the y-intercept, <em>2R<sub>c</sub></em>.
+          where <em>d</em> is the spacing between contacts, <em>W</em> is the contact width, and <em>R<sub>sh</sub></em>
+          is the sheet resistance of the semiconductor layer. Plotting <em>R<sub>T</sub></em> against spacing and fitting
+          a line gives <em>R<sub>sh</sub>/W</em> as the slope and <em>2R<sub>c</sub></em> as the y-intercept.
+        </p>
+        <p><strong>Cox &amp; Strack</strong> — for circular contacts of diameter <em>d</em>, the total resistance follows</p>
+        <p class="text-center fs-5 text-info">R<sub>T</sub> = 4R<sub>c</sub>/(&pi;d&sup2;) + 4t&rho;/(&pi;d&sup2;)</p>
+        <p>
+          where <em>t</em> and <em>&rho;</em> are the thickness and resistivity of the diffused layer. Plotted against
+          <em>1/d&sup2;</em> instead of spacing, the slope of the fit gives <em>R<sub>c</sub></em> directly — this was
+          the method I extended to solar cells, since it works on thinner semiconductors than TLM can measure.
         </p>
         <p class="text-light opacity-50 small">
-          The data points below are illustrative, not measurements from the actual thesis — the geometry follows
-          the pad spacings from the Cox &amp; Strack scene.
+          The data points shown are illustrative, not the raw measurements from the thesis — but they follow the
+          same equations and the same contact geometry as the Cox &amp; Strack structure scene.
         </p>
         <p>
           <a href="/assets/pdf/SemiconductorThesis.pdf" target="_blank" class="text-info">Read the full thesis (PDF)</a>
@@ -146,7 +153,7 @@
         <ul class="list-unstyled">
           <li><span class="badge rounded-pill" style="background:#8fd3ff;">&nbsp;&nbsp;</span> Measured resistance point</li>
           <li class="mt-2"><span class="badge rounded-pill" style="background:#ffb703;">&nbsp;&nbsp;</span> Linear fit</li>
-          <li class="mt-2"><span class="badge rounded-pill" style="background:#e85d75;">&nbsp;&nbsp;</span> Extrapolated y-intercept (2R<sub>c</sub>)</li>
+          <li class="mt-2"><span class="badge rounded-pill" style="background:#e85d75;">&nbsp;&nbsp;</span> Extrapolated y-intercept</li>
         </ul>
       </div>
     </div>
