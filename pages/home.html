@@ -13,40 +13,23 @@
 <body>
   <div id="site-navbar"></div>
    <div class="container">
-    <div class="row bg-primary rounded-1">
-         <h1 class="text-light">TheodoreAI</h1>
-    </div>
-     <div class="row rounded rounded-3">
+     <div class="row rounded rounded-3 pt-4">
          <div class="col-6 "><h2>About</h2>
           <div class="rounded-2">
              <p class="text-light">I am a Engineering Graduate Student. I have backgrounds in Applied Physics <a href="/assets/pdf/SemiconductorThesis.pdf" target="_blank"><i class="bi bi-info-circle-fill"></i>(Semiconductor Thesis)</a>, and Computer Science (Link to NASA WebSite).</p>
           </div>
          </div>
      </div>
-     <div ref="calendar" class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-        <div class="dropdown-menu d-block position-static p-2 mx-0 shadow rounded-3 w-340px" data-bs-theme="light">
+     <div class="d-flex justify-content-center p-4 py-md-5">
+        <div class="d-block p-2 mx-0 shadow rounded-3 w-340px" data-bs-theme="dark">
           <div class="d-grid gap-1">
             <div class="cal">
               <div class="cal-month">
-                <button class="btn cal-btn" type="button">
+                <button class="btn cal-btn" type="button" id="calPrevMonth" aria-label="Previous month">
                   <svg class="bi" width="16" height="16"><use xlink:href="#arrow-left-short"></use></svg>
                 </button>
-                <strong class="cal-month-name">June</strong>
-                <select class="form-select cal-month-name d-none">
-                  <option value="January">January</option>
-                  <option value="February">February</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option selected="" value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
-                </select>
-                <button class="btn cal-btn" type="button">
+                <strong class="cal-month-name" id="calMonthName">June 2026</strong>
+                <button class="btn cal-btn" type="button" id="calNextMonth" aria-label="Next month">
                   <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-short"></use></svg>
                 </button>
               </div>
@@ -59,124 +42,7 @@
                 <div class="cal-weekday">Fri</div>
                 <div class="cal-weekday">Sat</div>
               </div>
-              <div class="cal-days">
-                <button class="btn cal-btn" disabled="" type="button">30</button>
-                <button class="btn cal-btn" disabled="" type="button">31</button>
-      
-                <button class="btn cal-btn" type="button">1</button>
-                <button class="btn cal-btn" type="button">2</button>
-                <button class="btn cal-btn" type="button">3</button>
-                <button class="btn cal-btn" type="button">4</button>
-                <button class="btn cal-btn" type="button">5</button>
-                <button class="btn cal-btn" type="button">6</button>
-                <button class="btn cal-btn" type="button">7</button>
-      
-                <button class="btn cal-btn" type="button">8</button>
-                <button class="btn cal-btn" type="button">9</button>
-                <button class="btn cal-btn" type="button">10</button>
-                <button class="btn cal-btn" type="button">11</button>
-                <button class="btn cal-btn" type="button">12</button>
-                <button class="btn cal-btn" type="button">13</button>
-                <button class="btn cal-btn" type="button">14</button>
-      
-                <button class="btn cal-btn" type="button">15</button>
-                <button class="btn cal-btn" type="button">16</button>
-                <button class="btn cal-btn" type="button">17</button>
-                <button class="btn cal-btn" type="button">18</button>
-                <button class="btn cal-btn" type="button">19</button>
-                <button class="btn cal-btn" type="button">20</button>
-                <button class="btn cal-btn" type="button">21</button>
-      
-                <button class="btn cal-btn" type="button">22</button>
-                <button class="btn cal-btn" type="button">23</button>
-                <button class="btn cal-btn" type="button">24</button>
-                <button class="btn cal-btn" type="button">25</button>
-                <button class="btn cal-btn" type="button">26</button>
-                <button class="btn cal-btn" type="button">27</button>
-                <button class="btn cal-btn" type="button">28</button>
-      
-                <button class="btn cal-btn" type="button">29</button>
-                <button class="btn cal-btn" type="button">30</button>
-                <button class="btn cal-btn" type="button">31</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dropdown-menu d-block position-static p-2 mx-0 shadow rounded-3 w-340px" data-bs-theme="dark">
-          <div class="d-grid gap-1">
-            <div class="cal">
-              <div class="cal-month">
-                <button class="btn cal-btn" type="button">
-                  <svg class="bi" width="16" height="16"><use xlink:href="#arrow-left-short"></use></svg>
-                </button>
-                <strong class="cal-month-name">June</strong>
-                <select class="form-select cal-month-name d-none">
-                  <option value="January">January</option>
-                  <option value="February">February</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option selected="" value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
-                </select>
-                <button class="btn cal-btn" type="button">
-                  <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-short"></use></svg>
-                </button>
-              </div>
-              <div class="cal-weekdays text-body-secondary">
-                <div class="cal-weekday">Sun</div>
-                <div class="cal-weekday">Mon</div>
-                <div class="cal-weekday">Tue</div>
-                <div class="cal-weekday">Wed</div>
-                <div class="cal-weekday">Thu</div>
-                <div class="cal-weekday">Fri</div>
-                <div class="cal-weekday">Sat</div>
-              </div>
-              <div class="cal-days">
-                <button class="btn cal-btn" disabled="" type="button">30</button>
-                <button class="btn cal-btn" disabled="" type="button">31</button>
-      
-                <button class="btn cal-btn" type="button">1</button>
-                <button class="btn cal-btn" type="button">2</button>
-                <button class="btn cal-btn" type="button">3</button>
-                <button class="btn cal-btn" type="button">4</button>
-                <button class="btn cal-btn" type="button">5</button>
-                <button class="btn cal-btn" type="button">6</button>
-                <button class="btn cal-btn" type="button">7</button>
-      
-                <button class="btn cal-btn" type="button">8</button>
-                <button class="btn cal-btn" type="button">9</button>
-                <button class="btn cal-btn" type="button">10</button>
-                <button class="btn cal-btn" type="button">11</button>
-                <button class="btn cal-btn" type="button">12</button>
-                <button class="btn cal-btn" type="button">13</button>
-                <button class="btn cal-btn" type="button">14</button>
-      
-                <button class="btn cal-btn" type="button">15</button>
-                <button class="btn cal-btn" type="button">16</button>
-                <button class="btn cal-btn" type="button">17</button>
-                <button class="btn cal-btn" type="button">18</button>
-                <button class="btn cal-btn" type="button">19</button>
-                <button class="btn cal-btn" type="button">20</button>
-                <button class="btn cal-btn" type="button">21</button>
-      
-                <button class="btn cal-btn" type="button">22</button>
-                <button class="btn cal-btn" type="button">23</button>
-                <button class="btn cal-btn" type="button">24</button>
-                <button class="btn cal-btn" type="button">25</button>
-                <button class="btn cal-btn" type="button">26</button>
-                <button class="btn cal-btn" type="button">27</button>
-                <button class="btn cal-btn" type="button">28</button>
-      
-                <button class="btn cal-btn" type="button">29</button>
-                <button class="btn cal-btn" type="button">30</button>
-                <button class="btn cal-btn" type="button">31</button>
-              </div>
+              <div class="cal-days" id="calDays"></div>
             </div>
           </div>
         </div>
@@ -184,5 +50,62 @@
    </div>
   <div id="site-footer"></div>
 
+  <script>
+    (function () {
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+      const today = new Date();
+      let viewYear = today.getFullYear();
+      let viewMonth = today.getMonth();
+
+      const monthNameEl = document.getElementById('calMonthName');
+      const daysEl = document.getElementById('calDays');
+
+      function render() {
+        monthNameEl.textContent = monthNames[viewMonth] + ' ' + viewYear;
+        daysEl.innerHTML = '';
+
+        const firstOfMonth = new Date(viewYear, viewMonth, 1);
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        const leadingBlanks = firstOfMonth.getDay();
+        const daysInPrevMonth = new Date(viewYear, viewMonth, 0).getDate();
+
+        for (let i = leadingBlanks; i > 0; i--) {
+          const btn = document.createElement('button');
+          btn.className = 'btn cal-btn';
+          btn.type = 'button';
+          btn.disabled = true;
+          btn.textContent = daysInPrevMonth - i + 1;
+          daysEl.appendChild(btn);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const btn = document.createElement('button');
+          btn.className = 'btn cal-btn';
+          btn.type = 'button';
+          btn.textContent = day;
+          const isToday = day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear();
+          if (isToday) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-current', 'date');
+          }
+          daysEl.appendChild(btn);
+        }
+      }
+
+      document.getElementById('calPrevMonth').addEventListener('click', () => {
+        viewMonth--;
+        if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+        render();
+      });
+      document.getElementById('calNextMonth').addEventListener('click', () => {
+        viewMonth++;
+        if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+        render();
+      });
+
+      render();
+    })();
+  </script>
 </body>
 </html>
